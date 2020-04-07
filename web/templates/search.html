@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用layui</title>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+</head>
+<script>
+
+    $(function () {
+        $("#search_btn_reset").click()
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render();
+        });
+    });
+
+    function search_jobs() {
+        let job_name = $("#input_search_jobs").val();
+        let job_city = $("#choose_job_place").val();
+        var url = "/searchzw";
+        ;
+        var data = {
+            'search_keyword': job_name,
+            'city_name': job_city
+        }
+        // console.log(job_name + " : " + job_city);
+        /*$.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: data,
+            success: function (responseText) {
+                console.log("data: " + responseText);
+                var json = JSON.parse(responseText);
+                console.log("json is : " + json)
+            },
+            error: function () {
+
+            }
+        });*/
+
+        $.post(url, data, function (jsondata, status) {
+            console.log('status ： '+status)
+            if (status == 'success') {
+                $("#table_content tbody").empty()
+            }
+            for (i = 0; i < jsondata.length; i++) {
+                var requirement = jsondata[i]['requirement'].toString();
+                var welfare = jsondata[i]['welfare'];
+                if (requirement.length >= 30) {
+                    requirement = requirement.substr(0, 30) + "...";
+                }
+                if (welfare.length >= 19) {
+                    welfare = welfare.substr(0, 19) + "...";
+                }
+                var durl = jsondata[i]['dlink'];
+                $("#table_content tbody").append(
+                    " <tr>\n" +
+                    "         <td style='height: 100px'>" + jsondata[i]['pname'] + "</td>\n" +
+                    "         <td>" + jsondata[i]['cname'] + "</td>\n" +
+                    "         <td>" + welfare + "</td>\n" +
+                    "         <td>" + jsondata[i]['education'] + "</td>\n" +
+                    "         <td>" + jsondata[i]['scale'] + "</td>\n" +
+                    "         <td>" + requirement + "</td>\n" +
+                    // "         <td><button type='button' class='layui-btn layui-btn-normal' onclick='window.open(\"http://www.w3school.com.cn\")'>详情</button></td>\n" +
+                    "         <td><button type='button' class='layui-btn layui-btn-normal' onclick='window.open(\""+durl+"\")'>详情</button></td>\n" +
+                    "</tr> "
+                );
+            }
+        }, 'json');
+    }
+
+
+</script>
+<body>
+<div class="layui-row">
+    <!--    <div class="layui-col-md7">-->
+    <div class="layui-row grid-demo grid-demo-bg1">
+        <div class="layui-col-md12">
+            <!--                <div class="grid-demo">-->
+
+            <form class="layui-form" action="" method="post">
+                <div class="layui-form-item layui-row">
+                    <div class="layui-col-md1"><label class="layui-form-label">城市</label></div>
+
+                    <div class="layui-col-md1">
+                        <select id="choose_job_place" name="city_name" lay-verify="required">
+                            <option value=""></option>
+                            <option value="0">北京</option>
+                            <option value="1">上海</option>
+                            <option value="2">广州</option>
+                            <option value="3">深圳</option>
+                            <option value="4">杭州</option>
+                        </select>
+                    </div>
+
+                    <div class=" layui-col-md3" style="margin-left: 10px">
+                        <input id="input_search_jobs" type="text" name="search_keyword" required lay-verify="required"
+                               placeholder="请输入岗位关键字"
+                               autocomplete="off" class="layui-input">
+                    </div>
+
+                    <div class="layui-col-md3" style="margin-left: 10px">
+                        <button class="layui-btn" type="button" lay-filter="formDemo" onclick="search_jobs()">搜索
+                        </button>
+                        <button id="search_btn_reset" type="reset" class="layui-btn layui-btn-primary">取消</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!--                </div>-->
+        </div>
+
+        <div class="layui-col-md9">
+            <div class="grid-demo grid-demo-bg2">
+                <div class="layui-form">
+                    <table class="layui-table" id="table_content">
+                        <colgroup>
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="250">
+                            <col width="80">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>岗位</th>
+                            <th>公司</th>
+                            <th>福利</th>
+                            <th>学历</th>
+                            <th>规模</th>
+                            <th>要求</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--<div class="layui-col-md3">
+            <div class="grid-demo grid-demo-bg3">内部列</div>
+        </div>-->
+    </div>
+    <!--    </div>-->
+</div>
+</body>
+</html>

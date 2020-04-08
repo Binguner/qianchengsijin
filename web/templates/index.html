@@ -43,6 +43,11 @@
                     // console.log('load success')
                 });
                 break;
+            case 3:
+                $("#body-content").load("/edu_column", function () {
+                    // console.log('load success')
+                });
+                break;
 
         }
     }
@@ -101,7 +106,7 @@
                         <dd><a href="javascript:;" onclick="change_type_search(0)">岗位查询</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(1)">词云</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

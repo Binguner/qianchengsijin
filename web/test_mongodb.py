@@ -63,7 +63,7 @@ query = {"name": {"$regex": '^B'}}
 # mycollect.update(query, newValues)
 # mycollect.remove(query, multi=False)
 # mycollect.remove()
+
+
 for x in mycollect.find().sort('name', 1):
     print(x)
-
-

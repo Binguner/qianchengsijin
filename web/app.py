@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request,g,jsonify
+from collections import Counter
 import flask
 import json
 from datetime import datetime
@@ -28,9 +29,14 @@ def page_search():
 def page_ciyun():
     return render_template('ciyun.html')
 
+
 @app.route('/add_recruitment')
 def page_add_job():
     return render_template('add_recruitment.html')
+
+@app.route('/edu_column')
+def page_edu_column():
+    return render_template('education_column.html')
 
 
 @app.route('/searchzw', methods=['POST'])
@@ -42,7 +48,7 @@ def get_ans():
     # print(str(zw))
     res = []
     for x in zw:
-        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace':x['workplace'], 'welfare': x['welfare'],
+        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace': x['workplace'], 'welfare': x['welfare'],
                     'salary': x['salary'], 'education': x['education'], 'experience': x['experience'], 'requirement': x['requirement'],
                     'ctype': x['ctype'], 'scale': x['scale'], 'nature': x['nature'], 'dlink': x['dlink']})
     return jsonify(res)
@@ -65,6 +71,86 @@ def get_ciyun_data():
         response.append({'name':k,'value':v})
         # print(k+" : " + str(v))
     return jsonify(json_data)
+
+
+@app.route('/add_job_data', methods=['POST'])
+def add_job():
+    cname = request.values.get('cname')
+    pname = request.values.get('pname')
+    workplace = request.values.get('workplace')
+    welfare = request.values.get('welfare')
+    salary = request.values.get('salary')
+    education = request.values.get('education')
+    experience = request.values.get('experience')
+    requirement = request.values.get('requirement')
+    ctype = request.values.get('ctype')
+    scale = request.values.get('scale')
+    nature = request.values.get('nature')
+    dlink = request.values.get('dlink')
+
+    # print('cname: ' + cname)
+    # print('pname: ' + pname)
+    # print('workplace: ' + workplace)
+    # print('welfare: ' + welfare)
+    # print('salary: ' + salary)
+    # print('education: ' + education)
+    # print('experience: ' + experience)
+    # print('requirement: ' + requirement)
+    # print('ctype: ' + ctype)
+    # print('scale: ' + scale)
+    # print('nature: ' + nature)
+    # print('dlink: ' + dlink)
+
+    job_dict = {
+        'cname': cname,
+        'pname': pname,
+        'workplace': workplace,
+        'welfare': welfare,
+        'salary': salary,
+        'education': education,
+        'experience': experience,
+        'requirement': requirement,
+        'ctype': ctype,
+        'scale': scale,
+        'nature': nature,
+        'dlink': dlink
+    }
+
+    res = read_data.collection.insert(job_dict)
+    print(res)
+
+    response_data = {
+        'status': 'ok',
+        'id': str(res)
+    }
+
+    # print(response_data)
+    return jsonify(response_data)
+
+
+@app.route('/get_edu_data')
+def get_edu_data():
+    data = {}
+    dazhuan_query = {'education': '大专'}
+    benke_query = {'education': '本科'}
+    shuoshi_query = {'education': '硕士'}
+    boshi_query = {'education': '博士'}
+    dazhuan_data = read_data.collection.find(dazhuan_query)
+    benke__data = read_data.collection.find(benke_query)
+    shuoshi_data = read_data.collection.find(shuoshi_query)
+    boshi_data = read_data.collection.find(boshi_query)
+    counter = Counter()
+
+    for c in dazhuan_data:
+        counter['大专'] += 1
+    for c in benke__data:
+        counter['本科'] += 1
+    for c in shuoshi_data:
+        counter['硕士'] += 1
+    for c in boshi_data:
+        counter['博士'] += 1
+    print(str(counter))
+    return jsonify(counter)
 
 
 

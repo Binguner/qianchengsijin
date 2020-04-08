@@ -22,11 +22,12 @@
         let job_name = $("#input_search_jobs").val();
         let job_city = $("#choose_job_place").val();
         var url = "/searchzw";
-        ;
+
         var data = {
             'search_keyword': job_name,
             'city_name': job_city
         }
+
         // console.log(job_name + " : " + job_city);
         /*$.ajax({
             type: "POST",
@@ -81,12 +82,11 @@
     <!--    <div class="layui-col-md7">-->
     <div class="layui-row grid-demo grid-demo-bg1">
         <div class="layui-col-md12">
-            <!--                <div class="grid-demo">-->
+            <!--<div class="grid-demo">-->
 
             <form class="layui-form" action="" method="post">
                 <div class="layui-form-item layui-row">
                     <div class="layui-col-md1"><label class="layui-form-label">城市</label></div>
-
                     <div class="layui-col-md1">
                         <select id="choose_job_place" name="city_name" lay-verify="required">
                             <option value=""></option>
@@ -97,13 +97,11 @@
                             <option value="4">杭州</option>
                         </select>
                     </div>
-
                     <div class=" layui-col-md3" style="margin-left: 10px">
                         <input id="input_search_jobs" type="text" name="search_keyword" required lay-verify="required"
                                placeholder="请输入岗位关键字"
                                autocomplete="off" class="layui-input">
                     </div>
-
                     <div class="layui-col-md3" style="margin-left: 10px">
                         <button class="layui-btn" type="button" lay-filter="formDemo" onclick="search_jobs()">搜索
                         </button>
@@ -113,7 +111,7 @@
 
             </form>
 
-            <!--                </div>-->
+            <!--</div>-->
         </div>
 
         <div class="layui-col-md9">

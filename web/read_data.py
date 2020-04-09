@@ -80,3 +80,14 @@ def check_user(username, password):
         # print(c['username'])
     # print(res)
     return res
+
+
+def get_userid(username):
+    query = {
+        'username': username
+    }
+    cc = collection_user.find_one(query)
+    return
+
+
+print(list(data['workplace']))

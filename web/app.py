@@ -52,6 +52,11 @@ def page_exp_column():
     return render_template('experience_column.html')
 
 
+@app.route('/map_data')
+def page_map_data():
+    return render_template('map_data.html')
+
+
 @app.route('/get_ciyun', methods=['POST'])
 def get_ciyun_data():
     res = 'no data'
@@ -198,6 +203,7 @@ def dologin():
     }
     if isOk == 0:
         session['username'] = request.values.get('username')
+        session['userid'] = request.values.get('username')
     # {
     #   "isOk": 0,
     #   "msg": "登陆成功"
@@ -207,8 +213,27 @@ def dologin():
 
 @app.route('/logout', methods=['post'])
 def logout():
-    print("pop: "+session.pop('username', None))
-    return 'ok'
+    # print("pop: " + str(session.pop('username', 'none')))
+    response = {
+        'poped': str(session.pop('username', 'none')),
+    }
+    return jsonify(response)
+
+
+@app.route('/get_map_data', methods=['post'])
+def get_map_data():
+    # list(read_data.data['workplace'])
+    datalist = list(read_data.data['workplace'])
+    counter = Counter()
+    for item in datalist:
+        counter[item]+=1
+    response_data = []
+    for c in counter.keys():
+        response_data.append({'name': c, 'value':counter[c]})
+        # print(c + " : " + str(counter[c]))
+    return jsonify(response_data)
+
+
 
 
 # @app.route('/',methods=["POST","GET"])

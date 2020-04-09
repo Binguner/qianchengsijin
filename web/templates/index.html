@@ -8,10 +8,8 @@
     <script src="../static/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
-
 <script>
     //一般直接写在一个js文件中
-
     layui.use('form', 'element', function () {
         var form = layui.form;
         var element = layui.element;
@@ -20,9 +18,15 @@
 
     function logout() {
         var murl = '/logout';
-        $.post(murl,function (result) {
-            console.log('logout:' + result)
+        console.log('clicked logout')
+        $.post(murl, function (result) {
+            console.log('logout:' + result['poped'])
+            if (result['poped'] != 'none') {
+                target_url = 'http://localhost:5000/'
+                window.location.href = target_url;
+            }
         });
+
     }
 
     // layui.use(['layer', 'form'], function(){
@@ -58,6 +62,12 @@
                 $("#body-content").load("/exp_column", function () {
                     // console.log('load success')
                 });
+                break;
+            case 5:
+                document.getElementById("content_frame").src = "http://localhost:5000/map_data"
+                // $("#body-content").load("/map_data", function () {
+                //     // console.log('load success')
+                // });
                 break;
         }
     }
@@ -118,6 +128,7 @@
                         <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(5)">地图数据</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -137,14 +148,18 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div id="body-content" style="padding: 15px;">
-            内容主体区域
+            <!--            <div style="padding: 15px;">-->
+            <iframe id="content_frame" width="100%" height="800" frameborder="0">
+                您的浏览器不支持iframe，请升级
+            </iframe>
+            <!--            </div>-->
         </div>
     </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
+<!--    <div class="layui-footer">-->
+<!--        &lt;!&ndash; 底部固定区域 &ndash;&gt;-->
+<!--        © layui.com - 底部固定区域-->
+<!--    </div>-->
 </div>
 
 </body>

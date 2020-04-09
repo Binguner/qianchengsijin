@@ -1,18 +1,26 @@
-from flask import Flask,render_template,request,g,jsonify
+from flask import Flask,render_template,request,g,jsonify, session, flash, url_for, redirect
 from collections import Counter
 import flask
 import json
 from datetime import datetime
-
 import read_data
 import pandas as pd
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '123456'
 
 
 @app.route('/')
 def page_index():
+    username = session.get('username', 'none')
+    if username == 'none':
+        return render_template('login.html')
     return render_template('index.html')
+
+
+@app.route('/login')
+def page_login():
+    return render_template('login.html')
 
 
 @app.route('/search', methods=["GET", "POST"])
@@ -39,19 +47,9 @@ def page_edu_column():
     return render_template('education_column.html')
 
 
-@app.route('/searchzw', methods=['POST'])
-def get_ans():
-    zhiweis = request.values.get("search_keyword")
-    city = request.values.get("city_name")
-    print('zhiweis is :' + zhiweis + ", city name is :" + city)
-    zw = read_data.collection.find({"pname": {'$regex': zhiweis}})
-    # print(str(zw))
-    res = []
-    for x in zw:
-        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace': x['workplace'], 'welfare': x['welfare'],
-                    'salary': x['salary'], 'education': x['education'], 'experience': x['experience'], 'requirement': x['requirement'],
-                    'ctype': x['ctype'], 'scale': x['scale'], 'nature': x['nature'], 'dlink': x['dlink']})
-    return jsonify(res)
+@app.route('/exp_column')
+def page_exp_column():
+    return render_template('experience_column.html')
 
 
 @app.route('/get_ciyun', methods=['POST'])
@@ -128,6 +126,21 @@ def add_job():
     return jsonify(response_data)
 
 
+@app.route('/searchzw', methods=['POST'])
+def get_ans():
+    zhiweis = request.values.get("search_keyword")
+    city = request.values.get("city_name")
+    print('zhiweis is :' + zhiweis + ", city name is :" + city)
+    zw = read_data.collection.find({"pname": {'$regex': zhiweis}})
+    # print(str(zw))
+    res = []
+    for x in zw:
+        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace': x['workplace'], 'welfare': x['welfare'],
+                    'salary': x['salary'], 'education': x['education'], 'experience': x['experience'], 'requirement': x['requirement'],
+                    'ctype': x['ctype'], 'scale': x['scale'], 'nature': x['nature'], 'dlink': x['dlink']})
+    return jsonify(res)
+
+
 @app.route('/get_edu_data')
 def get_edu_data():
     data = {}
@@ -153,7 +166,49 @@ def get_edu_data():
     return jsonify(counter)
 
 
+@app.route('/get_exp_data')
+def get_exp_data():
+    mresponse = {
+        '不限': read_data.almost_year,
+        '1-2年': read_data.one_year,
+        '3-5年': read_data.three_year,
+        '5年以上': read_data.five_year
+    }
+    # print(read_data.one_year)
+    # print(read_data.three_year)
+    # print(read_data.five_year)
+    # print(read_data.almost_year)
+    return jsonify(mresponse)
 
+
+@app.route('/do_login', methods=['POST'])
+def dologin():
+    username = request.values.get('username')
+    password = request.values.get('password')
+    # print(username)
+    # print(password)
+    msg = "登陆成功"
+    isOk = 0
+    if not read_data.check_user(username, password):
+        isOk = 1
+        msg = '用户名或密码错误，请检查。'
+    result = {
+        'isOk': isOk,
+        'msg': msg
+    }
+    if isOk == 0:
+        session['username'] = request.values.get('username')
+    # {
+    #   "isOk": 0,
+    #   "msg": "登陆成功"
+    # }
+    return jsonify(result)
+
+
+@app.route('/logout', methods=['post'])
+def logout():
+    print("pop: "+session.pop('username', None))
+    return 'ok'
 
 
 # @app.route('/',methods=["POST","GET"])

@@ -18,6 +18,12 @@
         form.render();
     });
 
+    function logout() {
+        var murl = '/logout';
+        $.post(murl,function (result) {
+            console.log('logout:' + result)
+        });
+    }
 
     // layui.use(['layer', 'form'], function(){
     //   var layer = layui.layer
@@ -48,7 +54,11 @@
                     // console.log('load success')
                 });
                 break;
-
+            case 4:
+                $("#body-content").load("/exp_column", function () {
+                    // console.log('load success')
+                });
+                break;
         }
     }
 
@@ -92,7 +102,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a onclick="logout()">退了</a></li>
         </ul>
     </div>
 
@@ -107,6 +117,7 @@
                         <dd><a href="javascript:;" onclick="change_type_search(1)">词云</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

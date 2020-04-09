@@ -1,4 +1,5 @@
 import pymongo
+from bson import ObjectId
 import pandas as pd
 
 # 连接数据库
@@ -7,6 +8,7 @@ client = pymongo.MongoClient('localhost', 27017)
 db = client['51job']
 # 选中表
 collection = db['zhiwei']
+collection_user = db['user']
 
 # 读取表中数据
 data = pd.DataFrame(list(collection.find()))
@@ -53,11 +55,28 @@ for data2 in data2:
         one_year=one_year+1
     elif data2=="3年"or data2=="4年"or data2=="3-4年":
         three_year=three_year+1
-    elif data2=="5年"or data2=="6年"or data2=="5-7年":
+    elif data2=="5年"or data2=="6年"or data2=="5-7年" or data2=='8-9年':
         five_year=five_year+1
-    elif data2=="一年以下":
+    elif data2=="一年以下" or data2=='无需':
         almost_year=almost_year+1
     else:
         pass
 # print(count_undergraduate,master,doctor,college,unlimited)
 # print(graduate,unrestricted,one_year,three_year,five_year,almost_year)
+
+
+def check_user(username, password):
+    query = {
+        'username': username,
+        'password': password
+    }
+    res = False
+    # print(query)
+    for c in collection_user.find(query):
+        print(c['username'])
+        if c['username'] == username:
+            res = True
+            print(res)
+        # print(c['username'])
+    # print(res)
+    return res

@@ -125,9 +125,19 @@ def check_user(username, password):
     print(count)
 
 
+def delete_data():
+    rquery =  {
+        'salary':''
+    }
+    zhiwei_collect.remove(rquery, multi=True)
+
 
 if __name__ == '__main__':
-    check_user('root', 'root')
+    delete_data()
+    # for i in zhiwei_collect.find():
+    #     print(i)
+    # check_user('root', 'root')
+    # delete_user_root()
     # select_user_root()
     # add_user_root()
     # delete_user_root()

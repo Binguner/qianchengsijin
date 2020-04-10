@@ -36,35 +36,42 @@
     //   layer.msg('Hello World');
     // });
     function change_type_search(type) {
+        var host = 'http://'+window.location.host
         switch (type) {
             // search
             case 0:
-                $("#body-content").load("/search", function () {
-                    // console.log('load success')
-                });
+                // console.log(host+'/search')
+                document.getElementById("content_frame").src = host + '/search';
+                // ("/search", function () {
+                //     console.log('load success')
+                // });
                 break;
             case 1:
-                $("#body-content").load("/ciyun", function () {
-                    // console.log('load success')
-                });
+                document.getElementById("content_frame").src = host + '/ciyun';
+                // $("#content_frame").load("/ciyun", function () {
+                //     console.log('load success')
+                // });
                 break;
             case 2:
-                $("#body-content").load("/add_recruitment", function () {
-                    // console.log('load success')
-                });
+                document.getElementById("content_frame").src = host + '/add_recruitment';
+                // $("#content_frame").load("/add_recruitment", function () {
+                //     console.log('load success')
+                // });
                 break;
             case 3:
-                $("#body-content").load("/edu_column", function () {
-                    // console.log('load success')
-                });
+                document.getElementById("content_frame").src = host + '/edu_column';
+                // $("#content_frame").load("/edu_column", function () {
+                //     console.log('load success')
+                // });
                 break;
             case 4:
-                $("#body-content").load("/exp_column", function () {
+                document.getElementById("content_frame").src = host + '/exp_column';
+                // $("#content_frame").load("/exp_column", function () {
                     // console.log('load success')
-                });
+                // });
                 break;
             case 5:
-                document.getElementById("content_frame").src = "http://localhost:5000/map_data"
+                document.getElementById("content_frame").src = host + '/map_data'
                 // $("#body-content").load("/map_data", function () {
                 //     // console.log('load success')
                 // });

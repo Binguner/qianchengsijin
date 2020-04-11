@@ -139,7 +139,7 @@ if __name__ == '__main__':
     # check_user('root', 'root')
     # delete_user_root()
     # select_user_root()
-    # add_user_root()
+    add_user_root()
     # delete_user_root()
     # print_all_user()
     # print_all_database()

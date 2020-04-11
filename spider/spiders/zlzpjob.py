@@ -5,7 +5,7 @@
 import scrapy
 # from scrapy.linkextractors import LinkExtractor
 # from scrapy.spiders import CrawlSpider, Rule
-from zlzp.items import ZlzpItem
+from spider.items import ZlzpItem
 
 
 class ZlzpjobSpider(scrapy.Spider):

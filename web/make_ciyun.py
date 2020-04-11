@@ -19,7 +19,7 @@ for item in data:
             counter[i] += 1
         # all_list.append(i)
 
-counter = counter.most_common(200)
+counter = counter.most_common(250)
     # print(c + " : " + str(counter[c]))
 
 counter = dict(counter)

@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="006fc21b-d3a1-4739-b9f1-e09f1b036e3b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/map_data.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/map_data.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/test_mongodb.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/test_mongodb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +184,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585469878240</updated>
-      <workItem from="1585469880162" duration="137434000" />
+      <workItem from="1585469880162" duration="142098000" />
     </task>
     <servers />
   </component>

@@ -9,10 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'zlzp'
+BOT_NAME = 'spider'
 
-SPIDER_MODULES = ['zlzp.spiders']
-NEWSPIDER_MODULE = 'zlzp.spiders'
+SPIDER_MODULES = ['spider.spiders']
+NEWSPIDER_MODULE = 'spider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -66,7 +66,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'zlzp.pipelines.ZlzpPipeline': 300,
+    'spider.pipelines.ZlzpPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

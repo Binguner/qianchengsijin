@@ -1,4 +1,5 @@
 import pymongo
+from flask import g,session
 from bson import ObjectId
 import pandas as pd
 
@@ -10,17 +11,31 @@ db = client['51job']
 collection = db['zhiwei']
 collection_user = db['user']
 
+
+
 # 读取表中数据
 data = pd.DataFrame(list(collection.find()))
 # 选择需要显示的字段
-data = data[['pname',"workplace","education","salary","experience"]]
+data = data[['pname','cname',"workplace","education","salary","experience"]]
+# print(list(data['pname']))
 
+# 数据表基本信息（维度、列名称、数据格式、所占空间等）：
+# print(data.info())
+
+# 查看列名称
+# print(data.columns)
+
+# print(data.groupby('workplace').count())
 # for x in collection.find({"pname": {'$regex': 'Android'}}):
 #     print(x)
 
 # 打印输出
 data1=list(data['education'])
 data2=list(data['experience'])
+
+# print(data1)
+# print(data2)
+
 count_undergraduate=0
 master=0
 doctor=0
@@ -33,6 +48,8 @@ one_year=0
 almost_year=0
 three_year=0
 five_year=0
+# g.teststr = 'ffef'
+
 for data1 in data1:
     if data1=="本科":
         count_undergraduate=count_undergraduate+1
@@ -73,7 +90,9 @@ def check_user(username, password):
     res = False
     # print(query)
     for c in collection_user.find(query):
-        print(c['username'])
+        session['id'] = str(c['_id'])
+        # print(c['username'])
+        # print('id:'+str(c['_id']))
         if c['username'] == username:
             res = True
             print(res)
@@ -89,5 +108,14 @@ def get_userid(username):
     cc = collection_user.find_one(query)
     return
 
+
+def getUserInfo():
+    userid = str(session['id'])
+    query = {
+        '_id': ObjectId(userid)
+    }
+    res = collection_user.find_one(query)
+    # print('res ' + str(res))
+    return res
 
 # print(list(data['workplace']))

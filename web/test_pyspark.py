@@ -1,6 +1,9 @@
 import os
 import re
+import findspark
 from pyspark.sql import SparkSession
+
+findspark.init()
 
 # set PYSPARK_PYTHON to python36
 os.environ['PYSPARK_PYTHON'] = '/usr/bin/python3'
@@ -14,15 +17,14 @@ my_spark = SparkSession \
     .appName("MyApp") \
     .config("spark.mongodb.input.uri", input_uri) \
     .config("spark.mongodb.output.uri", output_uri) \
-    .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.11:2.2.0') \
-    .getOrCreate()
+    .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.11:2.2.0').getOrCreate()
 
 df = my_spark.read.format('com.mongodb.spark.sql.DefaultSource').load()
 # 返回RDD中的元素个数
-# count = df.count()
+count = df.count()
 # 返回RDD中的所有元素
 collect = df.collect()
-# print(collect[0])
+print(collect[0])
 # foreach(func) 仅返回满足foreach内函数条件的元素
 # print(collect[0]['cname'])
 # print(collect)
@@ -54,7 +56,7 @@ for item in df.collect():
     number = float(re.findall('\d+',temp['salary'])[0])
     if number != 0.0:
         array.append((temp['workplace'], number))
-# print(array)
+print(array)
 
 data = my_spark.sparkContext.parallelize(array)
 
@@ -62,7 +64,7 @@ data1 = data.aggregateByKey((0,0),lambda x,y:(x[0]+y,x[1]+1),lambda x,y:(x[0]+y[
 
 data2 = data1.map(lambda x:(x[0],x[1][0]/x[1][1]))
 
-# print(data2.collect())
+print(data2.collect())
 for item in data2.collect():
     print(item)
 # print(coll)

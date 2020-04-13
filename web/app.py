@@ -42,6 +42,7 @@ def page_ciyun():
 def page_add_job():
     return render_template('add_recruitment.html')
 
+
 @app.route('/edu_column')
 def page_edu_column():
     return render_template('education_column.html')
@@ -55,6 +56,21 @@ def page_exp_column():
 @app.route('/map_data')
 def page_map_data():
     return render_template('map_data.html')
+
+
+@app.route('/user_info')
+def page_user_info():
+    userinfo = read_data.getUserInfo()
+    username = userinfo['username']
+    email = userinfo['email']
+    phone = userinfo['phone']
+    type = userinfo['type']
+    g.username = userinfo['username']
+    g.email = userinfo['email']
+    g.phone = userinfo['phone']
+    g.type = userinfo['type']
+    print(username + " : " + email + " : " + phone + " : " + type)
+    return render_template('user_info.html')
 
 
 @app.route('/get_ciyun', methods=['POST'])
@@ -167,7 +183,11 @@ def get_edu_data():
         counter['硕士'] += 1
     for c in boshi_data:
         counter['博士'] += 1
-    print(str(counter))
+    print(str(read_data.count_undergraduate))
+    print(str(read_data.master))
+    print(str(read_data.doctor))
+    print(str(read_data.college))
+    # print(str(counter))
     return jsonify(counter)
 
 
@@ -202,6 +222,7 @@ def dologin():
         'msg': msg
     }
     if isOk == 0:
+        # print('after check : '+ str(session['id']))
         session['username'] = request.values.get('username')
         session['userid'] = request.values.get('username')
     # {

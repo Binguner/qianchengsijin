@@ -1,6 +1,3 @@
-#author Frank_Lee
-# email=lizhipengqilu@gmail.com
-#2019/3/21
 # -*- coding: utf-8 -*-
 import scrapy
 # from scrapy.linkextractors import LinkExtractor
@@ -25,20 +22,18 @@ class ZlzpjobSpider(scrapy.Spider):
         # item['publictime'] = response.xpath('')
         # yield item
         links = response.xpath('//div[@class="el"]/p/span/a/@href').extract()
-        #迭代取出每个集合里的链接
+        # 迭代取出每个集合里的链接
         for link in links:
-            #print(link)
-            #提取列表里每个链接，发送请求并调用callback处理
-            yield scrapy.Request(link,callback=self.parse_item)
-        if self.offset <= 1073:
+            # print(link)
+            # 提取列表里每个链接，发送请求并调用 callback 处理
+            yield scrapy.Request(link, callback=self.parse_item)
+        if self.offset <= 1005:
             self.offset += 1
             yield scrapy.Request(self.url + str(self.offset) + ".html?",callback=self.parse)
 
     #处理详情页信息的方法
     def parse_item(self, response):
-
         item = ZlzpItem()
-
         #公司名字
         item['cname'] = response.xpath('//div[@class="in"]/div/p/a/@title').extract()[0]
         # 职位名字
@@ -88,7 +83,6 @@ class ZlzpjobSpider(scrapy.Spider):
             item['nature'] = nature[0]
         # 详情链接
         item['dlink'] = response.url
-
         #交给管道文件处理数据
         yield item
 

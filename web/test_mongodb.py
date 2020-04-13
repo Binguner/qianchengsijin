@@ -84,9 +84,35 @@ def print_all_collections_in_51_job():
 
 
 def add_user_root():
+    # type root, hr, hunter
     user_dic = {
         'username': 'root',
-        'password': 'root'
+        'password': 'root',
+        'email':'478718805@qq.com',
+        'phone':'1212121212',
+        'type':'0',
+    }
+    user_collect.insert(user_dic)
+
+
+def add_user_hr():
+    user_dic = {
+        'username': 'first_hr',
+        'password': 'root',
+        'email': '478718806@qq.com',
+        'phone': '1234322',
+        'type': '1',
+    }
+    user_collect.insert(user_dic)
+
+
+def add_user_job_hunter():
+    user_dic = {
+        'username': 'job_hunter',
+        'password': 'root',
+        'email': '478718806@qq.com',
+        'phone': '1234322',
+        'type': '2',
     }
     user_collect.insert(user_dic)
 
@@ -95,7 +121,14 @@ def delete_user_root():
     deleted_user_dic = {
         'username': 'root'
     }
-    user_collect.remove(deleted_user_dic)
+    user_collect.remove(deleted_user_dic, multi=False)
+
+def delete_all_user():
+    deleted_user_dic = {
+        'username': 'job_hunter'
+    }
+    user_collect.remove(deleted_user_dic, multi=False)
+    pass
 
 
 def print_all_user():
@@ -133,14 +166,17 @@ def delete_data():
 
 
 if __name__ == '__main__':
-    delete_data()
+    # delete_data()
+    # delete_all_user()
     # for i in zhiwei_collect.find():
     #     print(i)
     # check_user('root', 'root')
     # delete_user_root()
     # select_user_root()
-    add_user_root()
+    # add_user_root()
     # delete_user_root()
-    # print_all_user()
+    # add_user_hr()
+    # add_user_job_hunter()
+    print_all_user()
     # print_all_database()
     # print_all_collections_in_51_job()

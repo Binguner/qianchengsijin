@@ -10,6 +10,7 @@ db = client['51job']
 # 选中表
 collection = db['zhiwei']
 collection_user = db['user']
+collection_resume = db['resume']
 
 
 
@@ -117,5 +118,21 @@ def getUserInfo():
     res = collection_user.find_one(query)
     # print('res ' + str(res))
     return res
+
+
+def add_resume(data):
+    print(data)
+    collection_resume.insert(data)
+
+
+def get_resume(id):
+    query = {
+        'id': id
+    }
+    res = collection_resume.find_one(query)
+    return res
+
+
+
 
 # print(list(data['workplace']))

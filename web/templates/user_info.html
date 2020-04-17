@@ -1,37 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <title>user_info</title>
-    <script src="../static/layui/layui.js"></script>
+    <script src="../static/layui/layui.all.js"></script>
     <script src="../static/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
 <script>
+
+
+   $(function () {
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render();
+        });
+    });
+
   $(function () {
     // console.log( {{ g.type }} )
     var mtype = {{ g.type }}
     switch (mtype) {
       case 0:
         console.log('root');
-        $('#user_info_phone').val('管理员')
+        // $('#user_info_phone').val('管理员');
+        $('#user_type').val(0);
+        $('#user_type').attr('disabled', 'disabled');
         break;
-
       case 1:
-        console.log('hr')
-        $('#user_info_phone').val('企业账号')
+        console.log('hr');
+        // $('#user_info_phone').val('企业账号');
+        $("#user_type option:first").remove();
+        $('#user_type').val(1);
         break;
       case 2:
-        console.log('hunter')
-        $('#user_info_phone').val('求职者')
+        console.log('hunter');
+        // $('#user_info_phone').val('求职者');
+        $("#user_type option:first").remove();
+        $('#user_type').val(2);
         break;
     }
+    layui.form.render();
   })
 </script>
-<body>
-<form class="layui-form layui-form-pane" action="">
+<body style="height: 100%">
+<!--<div style="width:100%; margin: 0 auto">-->
 
-  <div class="layui-form-item">
+<form class="layui-form layui-form-pane" action="" style="width:25%; margin: 0 auto; height:100%; margin-top: 200px">
+
+  <div class="layui-form-item" >
     <label class="layui-form-label">用户名</label>
     <div class="layui-input-inline">
       <input id="user_info_username" type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value='{{ g.username }}'>
@@ -45,47 +62,28 @@
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">用户类型</label>
+    <label class="layui-form-label">手机</label>
     <div class="layui-input-inline">
-      <input id="user_info_phone" type="text" name="phone" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value='{{ g.type }}'>
+      <input id="user_info_phone" type="text" name="phone" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value='{{g.phone}}'>
     </div>
   </div>
 
-<!--  <div class="layui-form-item">-->
-<!--    <div class="layui-inline">-->
-<!--      <label class="layui-form-label">日期选择</label>-->
-<!--      <div class="layui-input-block">-->
-<!--        <input type="text" name="date" id="date1" autocomplete="off" class="layui-input">-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="layui-inline">-->
-<!--      <label class="layui-form-label">行内表单</label>-->
-<!--      <div class="layui-input-inline">-->
-<!--        <input type="text" name="number" autocomplete="off" class="layui-input">-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-
-<!--  <div class="layui-form-item">-->
-<!--    <label class="layui-form-label">单行选择框</label>-->
-<!--    <div class="layui-input-block">-->
-<!--      <select name="interest" lay-filter="aihao">-->
-<!--        <option value=""></option>-->
-<!--        <option value="0">写作</option>-->
-<!--        <option value="1" selected="">阅读</option>-->
-<!--        <option value="2">游戏</option>-->
-<!--        <option value="3">音乐</option>-->
-<!--        <option value="4">旅行</option>-->
-<!--      </select>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="layui-form-item">
+    <label class="layui-form-label">用户类型</label>
+    <div class="layui-input-inline">
+      <select id="user_type" name="type" lay-filter="aihao">
+        <option value="0">管理员</option>
+        <option value="1">企业账号</option>
+        <option value="2">求职者</option>
+      </select>
+    </div>
+  </div>
 
   <div class="layui-form-item">
     <button class="layui-btn" lay-submit="" lay-filter="demo2">确认修改</button>
   </div>
 </form>
+<!--</div>-->
 
 </body>
 </html>

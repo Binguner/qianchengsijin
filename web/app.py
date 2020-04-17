@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,g,jsonify, session, flash, url_for, redirect
+from flask import Flask, render_template, request, g, jsonify, session, flash, url_for, redirect
 from collections import Counter
 import flask
 import json
@@ -73,6 +73,42 @@ def page_user_info():
     return render_template('user_info.html')
 
 
+@app.route('/user_resume')
+def page_user_resume():
+    # print(read_data.get_resume(session['id']))
+    if read_data.get_resume(session['id']) != None:
+        resume = read_data.get_resume(session['id'])
+        g.name = resume['name']
+        g.phone = resume['phone']
+        g.email = resume['email']
+        g.school = resume['school']
+        g.birthday = resume['birthday']
+        g.education = resume['education']
+        g.userinfo = resume['userinfo']
+        g.sex = resume['sex']
+        g.place = resume['place']
+
+    # print(resume['name'])
+    #
+    # print(resume['phone'])
+    #
+    # print(resume['email'])
+    #
+    # print(resume['school'])
+    #
+    # print(resume['birthday'])
+    #
+    # print(resume['education'])
+    #
+    # print(resume['userinfo'])
+    #
+    # print(resume['sex'])
+    #
+    # print(resume['place'])
+
+    return render_template('/person_resume.html')
+
+
 @app.route('/get_ciyun', methods=['POST'])
 def get_ciyun_data():
     res = 'no data'
@@ -86,8 +122,8 @@ def get_ciyun_data():
     # print(res)
     json_data = json.loads(res, encoding='utf-8')
     # print(json_data)
-    for k,v in json_data.items():
-        response.append({'name':k,'value':v})
+    for k, v in json_data.items():
+        response.append({'name': k, 'value': v})
         # print(k+" : " + str(v))
     return jsonify(json_data)
 
@@ -156,8 +192,10 @@ def get_ans():
     # print(str(zw))
     res = []
     for x in zw:
-        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace': x['workplace'], 'welfare': x['welfare'],
-                    'salary': x['salary'], 'education': x['education'], 'experience': x['experience'], 'requirement': x['requirement'],
+        res.append({'id': str(x['_id']), 'cname': x['cname'], 'pname': x['pname'], 'workplace': x['workplace'],
+                    'welfare': x['welfare'],
+                    'salary': x['salary'], 'education': x['education'], 'experience': x['experience'],
+                    'requirement': x['requirement'],
                     'ctype': x['ctype'], 'scale': x['scale'], 'nature': x['nature'], 'dlink': x['dlink']})
     return jsonify(res)
 
@@ -247,14 +285,50 @@ def get_map_data():
     datalist = list(read_data.data['workplace'])
     counter = Counter()
     for item in datalist:
-        counter[item]+=1
+        counter[item] += 1
     response_data = []
     for c in counter.keys():
-        response_data.append({'name': c, 'value':counter[c]})
+        response_data.append({'name': c, 'value': counter[c]})
         # print(c + " : " + str(counter[c]))
     return jsonify(response_data)
 
 
+@app.route('/add_user_resume', methods=['post'])
+def add_user_resume():
+    # print(session['id'])
+    name = request.values.get('name')
+    phone = request.values.get('phone')
+    email = request.values.get('email')
+    school = request.values.get('school')
+    birthday = request.values.get('birthday')
+    education = request.values.get('education')
+    userinfo = request.values.get('userinfo')
+    sex = request.values.get('sex')
+    place = request.values.get('place')
+    # print('name : ' + name)
+    # print('phone : ' + phone)
+    # print('email : ' + email)
+    # print('school : ' + school)
+    # print('birthday : ' + birthday)
+    # print('education : ' + education)
+    # print('userinfo : ' + userinfo)
+    # print('sex : ' + sex)
+    # print('place : ' + place)
+    json = {
+        'id': session['id'],
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'school': school,
+        'birthday': birthday,
+        'education': education,
+        'userinfo': userinfo,
+        'sex': sex,
+        'place': place
+
+    }
+    read_data.add_resume(json)
+    return 'ok'
 
 
 # @app.route('/',methods=["POST","GET"])

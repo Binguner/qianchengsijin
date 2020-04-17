@@ -94,6 +94,31 @@
                 //     // console.log('load success')
                 // });
                 break;
+            case 8:
+                document.getElementById("content_frame").src = host + '/company_info'
+                // $("#body-content").load("/map_data", function () {
+                //     // console.log('load success')
+                // });
+                break;
+
+            case 9:
+                document.getElementById("content_frame").src = host + '/main'
+                // $("#body-content").load("/map_data", function () {
+                //     // console.log('load success')
+                // });
+                break;
+            case 10:
+                document.getElementById("content_frame").src = host + '/company_number'
+                // $("#body-content").load("/map_data", function () {
+                //     // console.log('load success')
+                // });
+                break;
+            case 11:
+                document.getElementById("content_frame").src = host + '/company_nature'
+                // $("#body-content").load("/map_data", function () {
+                //     // console.log('load success')
+                // });
+                break;
         }
     }
 
@@ -157,6 +182,10 @@
                         <dd><a href="javascript:;" onclick="change_type_search(5)">地图数据</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(6)">用户信息</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(7)">个人简历</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(8)">公司信息</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(9)">首页</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(10)">公司数量</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(11)">公司行业</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

@@ -36,6 +36,11 @@ def get_company_type_number():
     return dict(company_count)
 
 
+def get_company_nature_number():
+    company_count = collection.map(lambda x: (x.asDict()['nature'],1)).countByKey()
+    return dict(company_count)
+
+
 def get_education_data():
     education_list = ['大专', '本科', '硕士', '博士']
     ans = collection.map(lambda x: (x.asDict()['education'], 1)).filter(lambda x: x[0] in education_list).countByKey()
@@ -73,7 +78,7 @@ def get_ciyun_jobs():
     print(res)
 
 
-get_ciyun_jobs()
+# get_ciyun_jobs()
 # get_experience_data()
 # aaa = collection.map(lambda x: (x.asDict()['experience'], 1)).countByKey()
 # print(aaa)

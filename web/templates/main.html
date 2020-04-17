@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+</head>
+<script>
+    $(function () {
+        var host = 'http://' + window.location.host;
+        // document.getElementById("content_frame_map").src = host + '/map_data';
+        document.getElementById("content_frame_edu").src = host + '/edu_column';
+        document.getElementById("content_frame_exp").src = host + '/exp_column';
+        document.getElementById("content_frame_company_number").src = host + '/company_number';
+
+
+    });
+</script>
+<body>
+<div class="layui-row">
+    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+        <iframe id="content_frame_edu" width="100%" height="450" frameborder="0">
+            您的浏览器不支持iframe，请升级
+        </iframe>
+    </div>
+
+<!--    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">-->
+<!--        <iframe id="content_frame_map" width="100%" height="900" frameborder="0">-->
+<!--            您的浏览器不支持iframe，请升级-->
+<!--        </iframe>-->
+<!--    </div>-->
+
+    <div class="layui-col-xs4 layui-col-sm12 layui-col-md6">
+        <iframe id="content_frame_exp" width="100%" height="450" frameborder="0">
+            您的浏览器不支持iframe，请升级
+        </iframe>
+    </div>
+
+
+    <div class="layui-col-xs4 layui-col-sm7 layui-col-md6">
+        <iframe id="content_frame_company_number" width="100%" height="450" frameborder="0">
+            您的浏览器不支持iframe，请升级
+        </iframe>
+    </div>
+    <div class="layui-col-xs4 layui-col-sm5 layui-col-md6">
+        <div class="grid-demo layui-bg-black">移动：4/12 | 平板：5/12 | 桌面：4/12</div>
+    </div>
+</div>
+</body>
+</html>

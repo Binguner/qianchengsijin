@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--    <script src="../static/layui/layui.js"></script>-->
+    <!--    <script src="../static/jquery-3.4.1.js"></script>-->
+    <!--    <script src="../static/echarts.js"></script>-->
+    <!--    <script src="../static/echarts-wordcloud.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/jquery-3.4.1.js"></script>
+    <script src="../static/echarts.js"></script>
+    <script src="../static/echarts-wordcloud.min.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <title>company_number</title>
+</head>
+<style>
+    html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+</style>
+
+<body style="height: 100%; margin: 0">
+<div id='main'></div>
+
+<script>
+    // $('#main').width($('#main').width());
+    // $('#main').height($('#main').height());
+
+    var murl = "/get_company_nature_data";
+    var jsondata = {}
+    var mydatas = []
+
+
+    for (var key in jsondata) {
+        // console.log(key + " : " + jsondata[key]);
+        // var item = jsondata[key];
+        // console.log(item);
+    }
+
+    var mainContainer = document.getElementById('main');
+    //用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+    var resizeMainContainer = function () {
+        mainContainer.style.width = window.innerWidth * 0.8 + 'px';
+        mainContainer.style.height = window.innerHeight * 0.8 + 'px';
+    };
+    //设置div容器高宽
+    resizeMainContainer();
+    // 初始化图表
+    var mainChart = echarts.init(mainContainer);
+    $(window).on('resize', function () {//
+        //屏幕大小自适应，重置容器高宽
+        resizeMainContainer();
+        mainChart.resize();
+    });
+
+    var chart = echarts.init(document.getElementById('main'));
+    option = {
+        title: {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '直接访问'},
+                    {value: 310, name: '邮件营销'},
+                    {value: 234, name: '联盟广告'},
+                    {value: 135, name: '视频广告'},
+                    {value: 1548, name: '搜索引擎'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    $.get(murl, function (result, status) {
+        // console.log('result is '+ result)
+        // console.log(result['大数据'])
+        jsondata = result;
+        // console.log(jsondata['大数据']);
+        // console.log(jsondata['大企']);
+        // mydatas = {
+        //     name: '2020年',
+        //     type: 'bar',
+        //     data: [jsondata['大专'], jsondata['本科'], jsondata['硕士'], jsondata['博士']]
+        // }
+        for (var key in jsondata) {
+            // console.log(key + " : " + jsondata[key]);
+            // var item = jsondata[key];
+            // console.log(item);
+            // mydatas.push({
+            //     name: key,
+            //     value: jsondata[key]
+            // })
+        }
+        // console.log(option['series'][0]['data'])
+        option['series'][0]['data'] = result
+        if (option && typeof option === "object") {
+            chart.setOption(option);
+        }
+        // console.log(mydatas)
+    }, 'json');
+
+
+
+    chart.setOption(option);
+
+
+    window.onresize = chart.resize;
+</script>
+
+
+</body>
+</html>

@@ -18,6 +18,11 @@ def page_index():
     return render_template('index.html')
 
 
+@app.route('/main')
+def page_main():
+    return render_template('main.html')
+
+
 @app.route('/login')
 def page_login():
     return render_template('login.html')
@@ -107,6 +112,34 @@ def page_user_resume():
     # print(resume['place'])
 
     return render_template('/person_resume.html')
+
+
+@app.route('/company_info')
+def page_company_info():
+    if read_data.get_resume(session['id']) != None:
+        company = read_data.get_company(session['id'])
+        g.name = company['name']
+        scale = company['scale'].split('-')
+        g.scale_min = scale[0]
+        g.scale_max = scale[1]
+        g.type = company['type']
+        g.nature = company['nature']
+        place = company['place'].split('-')
+        g.province = place[0]
+        g.city = place[1]
+        g.dis = place[2]
+        g.detail = company['detail']
+    return render_template("company_info.html")
+
+
+@app.route('/company_number')
+def page_company_number():
+    return render_template('company_type_number.html')
+
+
+@app.route('/company_nature')
+def page_company_nature():
+    return render_template('company_nature_number.html')
 
 
 @app.route('/get_ciyun', methods=['POST'])
@@ -296,6 +329,8 @@ def get_map_data():
 @app.route('/add_user_resume', methods=['post'])
 def add_user_resume():
     # print(session['id'])
+    resumeId = read_data.get_resume_id_by_user_id(session['id'])
+
     name = request.values.get('name')
     phone = request.values.get('phone')
     email = request.values.get('email')
@@ -325,11 +360,69 @@ def add_user_resume():
         'userinfo': userinfo,
         'sex': sex,
         'place': place
-
     }
+    # print(json)
+    if resumeId != None:
+        # print('update')
+        read_data.update_resume(resumeId, json)
+        return jsonify({'data': 'ok'})
     read_data.add_resume(json)
-    return 'ok'
+    return jsonify({'data': 'ok'})
 
+
+@app.route('/add_company_detail', methods=['post'])
+def add_company_detail():
+    companyId = read_data.get_company_id_by_user_id(session['id'])
+
+    c_name = request.values.get('c_name')
+    print('c_name: ' + c_name)
+    c_scale = request.values.get('c_scale')
+    print('c_scale: ' + c_scale)
+    c_type = request.values.get('c_type')
+    print('c_type: ' + c_type)
+    c_nature = request.values.get('c_nature')
+    print('c_nature: ' + c_nature)
+    c_place = request.values.get('c_place')
+    print('c_place: ' + c_place)
+    c_detail = request.values.get('c_detail')
+    print('c_detail: ' + c_detail)
+    user_id = session['id']
+    print('user_id: ' + user_id)
+
+    json = {
+        'id': user_id,
+        'name': c_name,
+        'scale': c_scale,
+        'type': c_type,
+        'nature': c_nature,
+        'place': c_place,
+        'detail': c_detail
+    }
+    if companyId != None:
+        print('update : ' + companyId)
+        read_data.update_company(companyId, json)
+        return jsonify({'data': 'ok'})
+    read_data.add_company(json)
+    return jsonify({'data': 'ok'})
+
+
+@app.route('/get_company_number_data')
+def get_company_number_data():
+    data = read_data.get_company_number_data()
+    return jsonify(data)
+
+
+@app.route('/get_company_nature_data')
+def get_company_nature_data():
+    data = read_data.get_company_nature_data()
+
+    data = dict(data)
+    # print(data)
+    #
+    # print(sorted(data.items(), key=lambda item: item[1]))
+    # data = list(data)
+    print(sorted(data.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
+    return jsonify(data)
 
 # @app.route('/',methods=["POST","GET"])
 # def hello_world():

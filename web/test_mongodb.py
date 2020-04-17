@@ -1,4 +1,5 @@
 import pymongo
+import test_pyspark
 from bson import ObjectId
 
 myclient = pymongo.MongoClient('localhost', 27017)
@@ -19,6 +20,15 @@ zhiwei_collect = database_51job['zhiwei']
 
 # 用户集合
 user_collect = database_51job['user']
+
+# 简历集合
+resume_collect = database_51job['resume']
+
+# 公司数量集合
+company_number_collect = database_51job['company_number']
+
+# 公司行业数量集合
+company_nature_collect = database_51job['company_nature']
 
 # 插入数据
 # x = mycollect.insert(mydic)
@@ -165,7 +175,41 @@ def delete_data():
     zhiwei_collect.remove(rquery, multi=True)
 
 
+def deleta_resume():
+    query = {
+        "name": "赵朝元"
+    }
+    resume_collect.remove(query)
+
+
+def spark_get_company_type_number():
+    res = test_pyspark.get_company_type_number()
+    res = dict(res)
+    for i in res.keys():
+        print(str(i) + " : " + str(res[i]))
+        dic = {
+            'company_type': str(i),
+            'company_number': res[i]
+        }
+        company_number_collect.insert(dic)
+
+
+def spark_get_company_nature_number():
+    res = test_pyspark.get_company_nature_number()
+    res = dict(res)
+    for i in res.keys():
+        print(str(i) + " : " + str(res[i]))
+        dic = {
+            'company_nature': str(i),
+            'company_number': res[i]
+        }
+        company_nature_collect.insert(dic)
+
+
+
+
 if __name__ == '__main__':
+    spark_get_company_nature_number()
     # delete_data()
     # delete_all_user()
     # for i in zhiwei_collect.find():
@@ -177,6 +221,6 @@ if __name__ == '__main__':
     # delete_user_root()
     # add_user_hr()
     # add_user_job_hunter()
-    print_all_user()
+    # print_all_user()
     # print_all_database()
     # print_all_collections_in_51_job()

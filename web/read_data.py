@@ -11,6 +11,9 @@ db = client['51job']
 collection = db['zhiwei']
 collection_user = db['user']
 collection_resume = db['resume']
+collection_company = db['company']
+collection_company_number = db['company_number']
+collection_company_nature = db['company_nature']
 
 
 
@@ -121,8 +124,10 @@ def getUserInfo():
 
 
 def add_resume(data):
-    print(data)
-    collection_resume.insert(data)
+    # print(data)
+    id = collection_resume.insert(data)
+    # session['resume_id'] = str(id)
+    # print(id)
 
 
 def get_resume(id):
@@ -133,6 +138,82 @@ def get_resume(id):
     return res
 
 
+def get_resume_id_by_user_id(user_id):
+    query = {
+        'id': user_id
+    }
+    resume_id = None
+    resume = collection_resume.find_one(query)
+    if resume != None:
+        resume_id = resume['_id']
+        # print(str(resume_id))
+        return str(resume_id)
+    else:
+        print('none')
+        return resume_id
+    # print(resume)
+    # if collection_resume.find_one(query)['_id'] != None:
+    #     resume_id = collection_resume.find_one(query)['_id']
+    # resume_id = None
+    # return str(resume_id)
+
+
+def update_resume(resume_id, new_values):
+    query = {
+        '_id': ObjectId(resume_id)
+    }
+    collection_resume.update(query, new_values)
+
+
+def add_company(company):
+    collection_company.insert(company)
+
+
+def get_company_id_by_user_id(user_id):
+    query = {
+        'id': user_id
+    }
+    company_id = None
+    resume = collection_company.find_one(query)
+    if resume != None:
+        company_id = resume['_id']
+        # print(str(company_id))
+        return str(company_id)
+    else:
+        print('none')
+        return company_id
+
+
+def get_company(id):
+    query = {
+        'id': id
+    }
+    res = collection_company.find_one(query)
+    return res
+
+
+
+def update_company(com_id, new_values):
+    query = {
+        '_id': ObjectId(com_id)
+    }
+    collection_company.update(query, new_values)
+
+
+def get_company_number_data():
+    res = collection_company_number.find()
+    data = []
+    for i in res:
+        data.append({ 'value': i['company_number'], 'name': i['company_type']})
+    return data
+
+
+def get_company_nature_data():
+    res = collection_company_nature.find()
+    data = []
+    for i in res:
+        data.append({ 'value': i['company_number'], 'name': i['company_nature']})
+    return data
 
 
 # print(list(data['workplace']))

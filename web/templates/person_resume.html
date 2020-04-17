@@ -48,12 +48,13 @@
                 place: place
             },
             dataType: 'json',
-            success: function () {
-
-
+            success: function (response_data) {
+                // alert(response_data)
+                alert('修改成功')
             },
-            error: function () {
-
+            error: function (response_data) {
+                // alert(response_data)
+                alert('修改失败')
             }
         })
 
@@ -61,12 +62,19 @@
 
     var workplace = '{{ g.place }}'.split('-');
 
+
     $(function () {
         $("#add_cancel").click()
 
+        $('#province').val(workplace[0]);
+        $('#city').val(workplace[1]);
+        $('#district').val(workplace[2]);
+        $('#education').val('{{g.education}}');
+        $("input:radio[value='{{g.sex}}']").attr('checked','true');
         // console.log('workplace: ' + workplace[0]);
         // console.log('workplace: ' + workplace[1]);
         // console.log('workplace: ' + workplace[2]);
+
         pro = workplace[0];
         citt = workplace[1];
         dis = workplace[2];
@@ -82,12 +90,15 @@
             elem: '#birthday' //指定元素
         });
 
+
     });
 
     $(window).bind("load", function () {
         $('#province').val(workplace[0]);
         $('#city').val(workplace[1]);
         $('#district').val(workplace[2]);
+        $('#education').val('{{g.education}}');
+
     })
 </script>
 <body>
@@ -147,14 +158,14 @@
         <div class="layui-input-block">
             <select id="education" name="interest" lay-filter="aihao" data-value="{{g.education}}">
                 <option value=""></option>
-                <option value="0">无</option>
-                <option value="1">小学</option>
-                <option value="2">高中</option>
-                <option value="3">专科</option>
-                <option value="4" selected="">本科</option>
-                <option value="5">硕士</option>
-                <option value="6">博士</option>
-                <option value="7">博士后</option>
+                <option value="无">无</option>
+                <option value="小学">小学</option>
+                <option value="高中">高中</option>
+                <option value="专科">专科</option>
+                <option value="本科" selected="">本科</option>
+                <option value="硕士">硕士</option>
+                <option value="博士">博士</option>
+                <option value="博士后">博士后</option>
             </select>
         </div>
     </div>

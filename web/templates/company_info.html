@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>company_info</title>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/area.js" type="text/javascript"></script>
+    <script src="../static/select.js" type="text/javascript"></script>
+</head>
+<body>
+
+<script>
+
+    $(function () {
+        $("#add_cancel").click()
+        $('#c_type').val('{{g.type}}');
+        $('#c_nature').val('{{g.nature}}');
+        $('#province').val('{{g.province}}');
+        $('#city').val('{{g.city}}');
+        $('#district').val('{{g.dis}}');
+    });
+
+
+    function send_company_msg() {
+        var c_name = $('#c_name').val();
+        var c_scale = $('#c_scale_min').val() + "-" + $('#c_scale_max').val();
+        var c_type = $('#c_type').val();
+        var c_nature = $('#c_nature').val();
+        var c_place = $('#province').val() + '-' + $('#city').val() + '-' + $('#district').val();
+        var c_detail = $('#c_detail').val();
+
+        console.log('c_name' + c_name);
+        console.log('c_scale' + c_scale);
+        console.log('c_type' + c_type);
+        console.log('c_nature' + c_nature);
+        console.log('c_place' + c_place);
+        console.log('c_detail' + c_detail);
+
+        $.ajax({
+            type: 'POST',
+            url: '/add_company_detail',
+            data: {
+                'c_name': c_name,
+                'c_scale': c_scale,
+                'c_type': c_type,
+                'c_nature': c_nature,
+                'c_place': c_place,
+                'c_detail': c_detail
+            },
+            success: function () {
+                alert('修改成功')
+            },
+            error: function () {
+                alert('修改成功')
+            }
+        })
+    }
+
+</script>
+
+
+<form class="layui-form layui-form-pane" action="">
+
+
+    <!--c_name-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名称</label>
+        <div class="layui-input-block">
+            <input id="c_name" type="text" name="title" autocomplete="off" placeholder="请输入公司名称" class="layui-input"
+                   value="{{g.name}}">
+        </div>
+    </div>
+
+    <!--c_scale-->
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">公司规模</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input id="c_scale_min" type="text" name="scale_min" placeholder="" autocomplete="off"
+                       class="layui-input" value="{{g.scale_min}}">
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input id="c_scale_max" type="text" name="scale_max" placeholder="" autocomplete="off"
+                       class="layui-input" value="{{g.scale_max}}">
+            </div>
+            <label class="layui-form-label">/ 人</label>
+        </div>
+    </div>
+
+    <!--c_type-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司类型</label>
+        <div class="layui-input-block">
+            <select id="c_type" name="type" lay-filter="aihao">
+                <option value=""></option>
+                <option value="民营公司">民营公司</option>
+                <option value="国企">国企</option>
+                <option value="合资">合资</option>
+                <option value="外资（欧美）">外资（欧美）</option>
+                <option value="外资（非欧美）">外资（非欧美）</option>
+                <option value="上市公司">上市公司</option>
+                <option value="事业单位">事业单位</option>
+                <option value="创业公司">创业公司</option>
+            </select>
+        </div>
+    </div>
+
+    <!--c_nature-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">行业</label>
+        <div class="layui-input-block">
+            <select id="c_nature" name="interest" lay-filter="aihao">
+                <option value=""></option>
+                <option value="网络游戏,互联网/电子商务">网络游戏,互联网/电子商务</option>
+                <option value="航天/航空">航天/航空</option>
+                <option value="金融/投资/证券">金融/投资/证券</option>
+                <option value="通信/电信/网络设备">通信/电信/网络设备</option>
+                <option value="酒店/旅游">酒店/旅游</option>
+                <option value="通信/电信运营、增值服务">通信/电信运营、增值服务</option>
+                <option value="汽车">汽车</option>
+                <option value="电子技术/半导体/集成电路">电子技术/半导体/集成电路</option>
+                <option value="计算机软件,计算机服务(系统、数据服务、维修)">计算机软件,计算机服务(系统、数据服务、维修)</option>
+                <option value="网络游戏">网络游戏</option>
+                <option value="计算机软件">计算机软件</option>
+                <option value="仪器仪表/工业自动化,计算机服务(系统、数据服务、维修)">仪器仪表/工业自动化,计算机服务(系统、数据服务、维修)</option>
+                <option value="政府/公共事业,建筑/建材/工程">政府/公共事业,建筑/建材/工程</option>
+                <option value="计算机软件,互联网/电子商务">计算机软件,互联网/电子商务</option>
+                <option value="互联网/电子商务,计算机软件">互联网/电子商务,计算机软件</option>
+                <option value="教育/培训/院校">教育/培训/院校</option>
+                <option value="保险">保险</option>
+                <option value="多元化业务集团公司,计算机软件">多元化业务集团公司,计算机软件</option>
+                <option value="广告,公关/市场推广/会展">广告,公关/市场推广/会展</option>
+                <option value="房地产">房地产</option>
+                <option value="快速消费品(食品、饮料、化妆品)">快速消费品(食品、饮料、化妆品)</option>
+                <option value="机械/设备/重工,互联网/电子商务">机械/设备/重工,互联网/电子商务</option>
+            </select>
+        </div>
+    </div>
+
+    <!--workplace : province city district-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司地点</label>
+        <div class="layui-inline">
+            <select name="province" id="province" lay-verify="required" lay-search
+                    lay-filter="province">
+                <option value="">省份</option>
+            </select>
+        </div>
+        <div class="layui-inline">
+            <select name="city" id="city" lay-verify="required" lay-search lay-filter="city">
+                <option value="">地级市</option>
+            </select>
+        </div>
+        <div class="layui-inline">
+            <select name="district" id="district" lay-verify="required" lay-search>
+                <option value="">县/区</option>
+            </select>
+        </div>
+    </div>
+
+    <!--c_detail-->
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">公司介绍</label>
+        <div class="layui-input-block">
+            <textarea id="c_detail" placeholder="请输入内容" class="layui-textarea">{{g.detail}}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <button type="button" class="layui-btn" onclick="send_company_msg()" lay-submit="" lay-filter="demo2">提交
+        </button>
+
+        <button id="add_cancel" type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+    </div>
+</form>
+
+</body>
+</html>

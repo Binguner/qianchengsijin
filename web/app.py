@@ -415,14 +415,21 @@ def get_company_number_data():
 @app.route('/get_company_nature_data')
 def get_company_nature_data():
     data = read_data.get_company_nature_data()
-
-    data = dict(data)
+    data = sorted(data, key=lambda item: item['value'], reverse=True)
+    data = data[0:20]
+    for i in data:
+        print(i)
+    # data = dict(data)
     # print(data)
     #
     # print(sorted(data.items(), key=lambda item: item[1]))
     # data = list(data)
-    print(sorted(data.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
+    # print(sorted(data.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
     return jsonify(data)
+
+
+
+
 
 # @app.route('/',methods=["POST","GET"])
 # def hello_world():

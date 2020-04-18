@@ -207,7 +207,6 @@ def get_company_number_data():
         data.append({ 'value': i['company_number'], 'name': i['company_type']})
     return data
 
-
 def get_company_nature_data():
     res = collection_company_nature.find()
     data = []

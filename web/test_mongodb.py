@@ -206,10 +206,15 @@ def spark_get_company_nature_number():
         company_nature_collect.insert(dic)
 
 
+def deleteNature():
+    company_nature_collect.drop()
 
 
 if __name__ == '__main__':
-    spark_get_company_nature_number()
+    pass
+
+    # deleteNature()
+    # spark_get_company_nature_number()
     # delete_data()
     # delete_all_user()
     # for i in zhiwei_collect.find():

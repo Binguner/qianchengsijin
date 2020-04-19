@@ -142,6 +142,10 @@ def page_company_nature():
     return render_template('company_nature_number.html')
 
 
+@app.route('/fangcha')
+def page_fangcha():
+    return render_template('/fangcha.html')
+
 @app.route('/get_ciyun', methods=['POST'])
 def get_ciyun_data():
     res = 'no data'
@@ -428,7 +432,16 @@ def get_company_nature_data():
     return jsonify(data)
 
 
-
+@app.route('/get_rich_poor_fangcha')
+def get_rich_poor_fangcha():
+    data = read_data.get_rich_poor_fangcha()
+    res = []
+    for i in data:
+        res.append({
+            'city': i['city'],
+            'value': i['value']
+        })
+    return jsonify(res)
 
 
 # @app.route('/',methods=["POST","GET"])

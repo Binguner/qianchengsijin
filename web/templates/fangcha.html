@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/jquery-3.4.1.js"></script>
+    <script src="../static/echarts.js"></script>
+    <script src="../static/echarts-wordcloud.min.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <title>方差</title>
+</head>
+<body>
+<style>
+    html, body, #main {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+</style>
+<div id='main'></div>
+<script>
+    // $('#main').width($('#main').width());
+    // $('#main').height($('#main').height());
+
+    var murl = "/get_rich_poor_fangcha";
+    var jsondata = {}
+    var mydatas = []
+
+
+    for (var key in jsondata) {
+        // console.log(key + " : " + jsondata[key]);
+        // var item = jsondata[key];
+        // console.log(item);
+    }
+
+    var mainContainer = document.getElementById('main');
+    //用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+    var resizeMainContainer = function () {
+        mainContainer.style.width = window.innerWidth * 0.8 + 'px';
+        mainContainer.style.height = window.innerHeight * 0.8 + 'px';
+    };
+    //设置div容器高宽
+    resizeMainContainer();
+    // 初始化图表
+    var mainChart = echarts.init(mainContainer);
+    $(window).on('resize', function () {//
+        //屏幕大小自适应，重置容器高宽
+        resizeMainContainer();
+        mainChart.resize();
+    });
+
+    var dataAxis = [];
+    var data = [];
+    var chart = echarts.init(document.getElementById('main'));
+    // var option = {
+    //     title: {
+    //         text: '招聘职位学历要求',
+    //         subtext: '数据来自前程无忧'
+    //     },
+    //     tooltip: {
+    //         trigger: 'axis',
+    //         axisPointer: {
+    //             type: 'shadow'
+    //         }
+    //     },
+    //     legend: {
+    //         data: ['2020年']
+    //     },
+    //     grid: {
+    //         left: '3%',
+    //         right: '4%',
+    //         bottom: '3%',
+    //         containLabel: true
+    //     },
+    //     xAxis: {
+    //         type: 'value',
+    //         boundaryGap: [0, 0.01]
+    //     },
+    //     yAxis: {
+    //         type: 'category',
+    //         data: ['大专', '本科', '硕士', '博士']
+    //     },
+    //     series: [
+    //         {
+    //             name: '2020年',
+    //             type: 'bar',
+    //             data: [18203, 23489, 29034, 14970]
+    //         }
+    //     ]
+    // };
+
+
+    // console.log('setOption')
+    // chart.setOption(option);
+
+
+    var dom = document.getElementById("main");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    // var dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+    var dataAxis = [];
+    // var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
+    var data = [];
+    var yMax = 500;
+    var dataShadow = [];
+
+
+    for (var i = 0; i < data.length; i++) {
+        dataShadow.push(yMax);
+    }
+
+    option = {
+        title: {
+            text: '部分城市薪资差距',
+            subtext: '根据前程无忧网站中部分地区的所有薪资计算而得'
+        },
+        xAxis: {
+            data: dataAxis,
+            axisLabel: {
+                inside: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            z: 10
+        },
+        yAxis: {
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        dataZoom: [
+            {
+                type: 'inside'
+            }
+        ],
+        series: [
+            { // For shadow
+                type: 'bar',
+                itemStyle: {
+                    color: 'rgba(0,0,0,0.05)'
+                },
+                barGap: '-100%',
+                barCategoryGap: '40%',
+                data: dataShadow,
+                animation: false
+            },
+            {
+                type: 'bar',
+                itemStyle: {
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 0, 1,
+                        [
+                            {offset: 0, color: '#83bff6'},
+                            {offset: 0.5, color: '#188df0'},
+                            {offset: 1, color: '#188df0'}
+                        ]
+                    )
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#2378f7'},
+                                {offset: 0.7, color: '#2378f7'},
+                                {offset: 1, color: '#83bff6'}
+                            ]
+                        )
+                    }
+                },
+                data: data
+            }
+        ]
+    };
+
+    $.get(murl, function (result, status) {
+        // console.log('result is '+ result)
+        // console.log(result['大数据'])
+        // jsondata = result;
+        // console.log(jsondata['大数据']);
+        // console.log(jsondata['大企']);
+        // mydatas = {
+        //     name: '2020年',
+        //     type: 'bar',
+        //     data: [jsondata['大专'], jsondata['本科'], jsondata['硕士'], jsondata['博士']]
+        // }
+        // console.log('result : ' + result);
+        for (i = 0; i < result.length; i++) {
+            var city = result[i]['city'];
+            var value = result[i]['value'];
+            dataAxis.push(city);
+            data.push(value);
+            // console.log(city + " : " +  value);
+        }
+        // console.log(dataAxis);
+        // console.log(data);
+        option['xAxis']['data'] = dataAxis;
+        option['series'][1]['data'] = data;
+        console.log(option['xAxis']['data'])
+        console.log(option['series'][1]['data']);
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    }, 'json');
+
+    // Enable data zoom when user click bar.
+
+    var zoomSize = 6;
+    myChart.on('click', function (params) {
+        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+        myChart.dispatchAction({
+            type: 'dataZoom',
+            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        });
+    });
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+
+    window.onresize = chart.resize;
+</script>
+</body>
+</html>

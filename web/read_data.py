@@ -14,6 +14,7 @@ collection_resume = db['resume']
 collection_company = db['company']
 collection_company_number = db['company_number']
 collection_company_nature = db['company_nature']
+collection_rich_poor = db['rich_poor']
 
 
 
@@ -207,6 +208,7 @@ def get_company_number_data():
         data.append({ 'value': i['company_number'], 'name': i['company_type']})
     return data
 
+
 def get_company_nature_data():
     res = collection_company_nature.find()
     data = []
@@ -214,5 +216,15 @@ def get_company_nature_data():
         data.append({ 'value': i['company_number'], 'name': i['company_nature']})
     return data
 
+
+def get_rich_poor_fangcha():
+    res = collection_rich_poor.find()
+    res = list(res)
+    data4 = sorted(res, key=lambda x: x['value'], reverse=True)[0:30]
+    print(data4)
+    return data4
+
+
+get_rich_poor_fangcha()
 
 # print(list(data['workplace']))

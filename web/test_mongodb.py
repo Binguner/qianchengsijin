@@ -1,6 +1,13 @@
 import pymongo
-import test_pyspark
+# from web import test_pyspark
 from bson import ObjectId
+import numpy as np
+from web import test_pyspark
+import sys
+
+
+sys.path.append('/usr/local/lib/python3.7/site-packages/numpy')
+
 
 myclient = pymongo.MongoClient('localhost', 27017)
 dblist = myclient.database_names()
@@ -29,6 +36,9 @@ company_number_collect = database_51job['company_number']
 
 # 公司行业数量集合
 company_nature_collect = database_51job['company_nature']
+
+# 平复差距数据
+rich_poor_collect = database_51job['rich_poor']
 
 # 插入数据
 # x = mycollect.insert(mydic)
@@ -59,7 +69,7 @@ company_nature_collect = database_51job['company_nature']
 # for x in mycollect.find().limit(3):
 #     print(x)
 
-query = {"name": {"$regex": '^B'}}
+# query = {"name": {"$regex": '^B'}}
 # newValues = {'$set': {'name': 'Test'}}
 
 # mycollect.update(query, newValues)
@@ -210,9 +220,23 @@ def deleteNature():
     company_nature_collect.drop()
 
 
-if __name__ == '__main__':
-    pass
+def print_all_salary():
+    for i in zhiwei_collect.find():
+        print(i['pname']+" : " + i['workplace'] +" : "+i['salary'])
 
+
+# def add_rich_poor():
+#     test_pyspark.get_rich_poor_data()
+    # dic = test_pyspark.get_rich_poor_data()
+    # for item in dic:
+    #     print(item)
+
+    # print(str(dic))
+
+
+if __name__ == '__main__':
+    # add_rich_poor()
+    print_all_salary()
     # deleteNature()
     # spark_get_company_nature_number()
     # delete_data()

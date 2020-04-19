@@ -1,9 +1,16 @@
 import os
 import re
+# import pymongo
 from pyspark.sql import SparkSession,Row
 from pyspark import SparkContext
 from operator import add
-import findspark
+# import numpy as np
+import sys
+
+# myclient = pymongo.MongoClient('localhost', 27017)
+# database_51job = myclient['51job']
+# rich_poor_collect = database_51job['rich_poor']
+sys.path.append('/usr/local/lib/python3.7/site-packages/numpy')
 
 
 os.environ['PYSPARK_PYTHON'] = '/usr/bin/python3'
@@ -73,10 +80,55 @@ def get_experience_data():
     #       + '\n' + 'five_seven: ' + str(five_seven) + '\n' + 'eight_nine : ' + str(eight_nine) + "\n" + 'more_ten：' + str(more_ten))
 
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
+
+
+def get_rich_poor_data():
+    # res = df.select('workplace', 'salary').collect()
+    # res = df.rdd.filter(lambda x: re.findall('\d+', x['salary'])).collect()
+    res = df.rdd.filter(lambda x: is_number(x['salary'])).map(lambda x: (x['workplace'], float(x['salary'])))\
+        .groupByKey().collect()
+
+    #     print(i['salary'])
+    dic = []
+    for i in res:
+        data = list(i[1])
+        # print((list[data]))
+        dic.append({
+            'city': i[0],
+            'value': np.var(data)
+        })
+    # rich_poor_collect.insert(dic)
+    print(dic)
+    # test_mongodb.add_rich_poor(dic)
+    return dic
+
+        # for i in data:
+        #     print(i)
+
+    # print(res.collect())
+
+
 def get_ciyun_jobs():
     res = collection.map(lambda x: (x.asDict()['pname'], 1)).countByKey()
     print(res)
 
+
+# get_rich_poor_data()
 
 # get_ciyun_jobs()
 # get_experience_data()

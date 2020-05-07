@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="006fc21b-d3a1-4739-b9f1-e09f1b036e3b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/qianjin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/qianjin.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/read_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/company_nature_number.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/company_nature_number.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/company_type_number.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/company_type_number.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/experience_column.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/experience_column.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/test_mongodb.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/test_mongodb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/spider/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spider/spiders/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/spider/spiders/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +40,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -59,7 +55,29 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_mongodb">
+  <component name="RunManager" selected="Python.read_data">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="qianjin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="make_ciyun" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="qianjin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -172,11 +190,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_mongodb" />
         <item itemvalue="Python.read_data" />
+        <item itemvalue="Python.test_mongodb" />
         <item itemvalue="Python.test_pyspark" />
-        <item itemvalue="Python.make_ciyun" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.make_ciyun" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +214,11 @@
       <workItem from="1585469880162" duration="144808000" />
       <workItem from="1586662507693" duration="24004000" />
       <workItem from="1586877240654" duration="2447000" />
-      <workItem from="1586929155025" duration="58364000" />
+      <workItem from="1586929155025" duration="67283000" />
+      <workItem from="1587197858959" duration="3030000" />
+      <workItem from="1587203187551" duration="37000" />
+      <workItem from="1587203315788" duration="8670000" />
+      <workItem from="1587263285132" duration="1185000" />
     </task>
     <servers />
   </component>
@@ -217,10 +239,11 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="303" y="165" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586852331219">
-      <screen x="0" y="23" width="1680" height="963" />
+    <state x="303" y="166" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587192284408">
+      <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state x="303" y="165" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.963@0.23.1680.963" timestamp="1586852331219" />
+    <state x="303" y="166" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.969@0.23.1680.969" timestamp="1587192284408" />
     <state x="574" y="313" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586926371926">
       <screen x="0" y="23" width="1680" height="963" />
     </state>
@@ -229,42 +252,47 @@
       <screen x="0" y="23" width="1680" height="963" />
     </state>
     <state x="596" y="381" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.963@0.23.1680.963" timestamp="1585714497938" />
-    <state width="1636" height="243" key="GridCell.Tab.0.bottom" timestamp="1587172784032">
+    <state width="1636" height="251" key="GridCell.Tab.0.bottom" timestamp="1587259811024">
       <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state width="1638" height="173" key="GridCell.Tab.0.bottom/-1024.236.1024.745/0.23.1680.963@0.23.1680.963" timestamp="1586606996956" />
     <state width="1638" height="332" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1586537668673" />
     <state width="1636" height="243" key="GridCell.Tab.0.bottom/0.23.1680.963@0.23.1680.963" timestamp="1587131533179" />
-    <state width="1636" height="243" key="GridCell.Tab.0.bottom/0.23.1680.969@0.23.1680.969" timestamp="1587172784032" />
+    <state width="1636" height="251" key="GridCell.Tab.0.bottom/0.23.1680.969@0.23.1680.969" timestamp="1587259811024" />
     <state width="1636" height="335" key="GridCell.Tab.0.bottom/209.-1057.1920.1057/0.23.1680.963@0.23.1680.963" timestamp="1586765261414" />
-    <state width="1636" height="243" key="GridCell.Tab.0.center" timestamp="1587172784029">
+    <state width="1636" height="251" key="GridCell.Tab.0.center" timestamp="1587259811023">
       <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state width="1638" height="173" key="GridCell.Tab.0.center/-1024.236.1024.745/0.23.1680.963@0.23.1680.963" timestamp="1586606996955" />
     <state width="1638" height="332" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1586537668671" />
     <state width="1636" height="243" key="GridCell.Tab.0.center/0.23.1680.963@0.23.1680.963" timestamp="1587131533178" />
-    <state width="1636" height="243" key="GridCell.Tab.0.center/0.23.1680.969@0.23.1680.969" timestamp="1587172784029" />
+    <state width="1636" height="251" key="GridCell.Tab.0.center/0.23.1680.969@0.23.1680.969" timestamp="1587259811023" />
     <state width="1636" height="335" key="GridCell.Tab.0.center/209.-1057.1920.1057/0.23.1680.963@0.23.1680.963" timestamp="1586765261410" />
-    <state width="1636" height="243" key="GridCell.Tab.0.left" timestamp="1587172784028">
+    <state width="1636" height="251" key="GridCell.Tab.0.left" timestamp="1587259811023">
       <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state width="1638" height="173" key="GridCell.Tab.0.left/-1024.236.1024.745/0.23.1680.963@0.23.1680.963" timestamp="1586606996954" />
     <state width="1638" height="332" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1586537668670" />
     <state width="1636" height="243" key="GridCell.Tab.0.left/0.23.1680.963@0.23.1680.963" timestamp="1587131533178" />
-    <state width="1636" height="243" key="GridCell.Tab.0.left/0.23.1680.969@0.23.1680.969" timestamp="1587172784028" />
+    <state width="1636" height="251" key="GridCell.Tab.0.left/0.23.1680.969@0.23.1680.969" timestamp="1587259811023" />
     <state width="1636" height="335" key="GridCell.Tab.0.left/209.-1057.1920.1057/0.23.1680.963@0.23.1680.963" timestamp="1586765261409" />
-    <state width="1636" height="243" key="GridCell.Tab.0.right" timestamp="1587172784031">
+    <state width="1636" height="251" key="GridCell.Tab.0.right" timestamp="1587259811024">
       <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state width="1638" height="173" key="GridCell.Tab.0.right/-1024.236.1024.745/0.23.1680.963@0.23.1680.963" timestamp="1586606996955" />
     <state width="1638" height="332" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1586537668672" />
     <state width="1636" height="243" key="GridCell.Tab.0.right/0.23.1680.963@0.23.1680.963" timestamp="1587131533179" />
-    <state width="1636" height="243" key="GridCell.Tab.0.right/0.23.1680.969@0.23.1680.969" timestamp="1587172784031" />
+    <state width="1636" height="251" key="GridCell.Tab.0.right/0.23.1680.969@0.23.1680.969" timestamp="1587259811024" />
     <state width="1636" height="335" key="GridCell.Tab.0.right/209.-1057.1920.1057/0.23.1680.963@0.23.1680.963" timestamp="1586765261412" />
-    <state x="515" y="336" key="com.intellij.ide.util.TipDialog" timestamp="1586929446710">
-      <screen x="0" y="23" width="1680" height="963" />
+    <state x="340" y="143" key="SettingsEditor" timestamp="1587191932462">
+      <screen x="0" y="23" width="1680" height="969" />
+    </state>
+    <state x="340" y="143" key="SettingsEditor/0.23.1680.969@0.23.1680.969" timestamp="1587191932462" />
+    <state x="515" y="338" key="com.intellij.ide.util.TipDialog" timestamp="1587263291167">
+      <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state x="515" y="336" key="com.intellij.ide.util.TipDialog/0.23.1680.963@0.23.1680.963" timestamp="1586929446710" />
+    <state x="515" y="338" key="com.intellij.ide.util.TipDialog/0.23.1680.969@0.23.1680.969" timestamp="1587263291167" />
     <state x="485" y="125" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586757099934">
       <screen x="0" y="23" width="1680" height="963" />
     </state>
@@ -273,19 +301,19 @@
       <screen x="0" y="23" width="1680" height="963" />
     </state>
     <state x="498" y="261" width="683" height="486" key="find.popup/0.23.1680.963@0.23.1680.963" timestamp="1586926388145" />
-    <state x="503" y="233" width="672" height="683" key="search.everywhere.popup" timestamp="1587133925736">
+    <state x="503" y="233" width="672" height="683" key="search.everywhere.popup" timestamp="1587219452718">
       <screen x="0" y="23" width="1680" height="969" />
     </state>
     <state x="503" y="228" width="672" height="740" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1586527094157" />
     <state x="503" y="232" width="672" height="678" key="search.everywhere.popup/0.23.1680.963@0.23.1680.963" timestamp="1587086081573" />
-    <state x="503" y="233" width="672" height="683" key="search.everywhere.popup/0.23.1680.969@0.23.1680.969" timestamp="1587133925736" />
+    <state x="503" y="233" width="672" height="683" key="search.everywhere.popup/0.23.1680.969@0.23.1680.969" timestamp="1587219452718" />
     <state x="503" y="232" width="672" height="679" key="search.everywhere.popup/209.-1057.1920.1057/0.23.1680.963@0.23.1680.963" timestamp="1586756908769" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/qianjin$read_data.coverage" NAME="read_data Coverage Results" MODIFIED="1587027545043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
-    <SUITE FILE_PATH="coverage/qianjin$test_pyspark.coverage" NAME="test_pyspark Coverage Results" MODIFIED="1586960611274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
-    <SUITE FILE_PATH="coverage/qianjin$test_mongodb.coverage" NAME="test_mongodb Coverage Results" MODIFIED="1587172759473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
-    <SUITE FILE_PATH="coverage/qianjin$test.coverage" NAME="test Coverage Results" MODIFIED="1586271468325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
+    <SUITE FILE_PATH="coverage/qianjin$test_mongodb.coverage" NAME="test_mongodb Coverage Results" MODIFIED="1587214445954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
     <SUITE FILE_PATH="coverage/qianjin$make_ciyun.coverage" NAME="make_ciyun Coverage Results" MODIFIED="1586610102943" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
+    <SUITE FILE_PATH="coverage/qianjin$read_data.coverage" NAME="read_data Coverage Results" MODIFIED="1587214599090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
+    <SUITE FILE_PATH="coverage/qianjin$test_pyspark.coverage" NAME="test_pyspark Coverage Results" MODIFIED="1587203669477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
+    <SUITE FILE_PATH="coverage/qianjin$test.coverage" NAME="test Coverage Results" MODIFIED="1587186857617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
   </component>
 </project>

@@ -109,6 +109,11 @@
 
 </style>
 <script>
+
+    var i = 2;
+    var murl2 = 'http://localhost:5000/';
+
+    var intervalid;
     function doRegister() {
         var username = $('#input_username').val();
         var password = $('#input_password').val();
@@ -161,7 +166,6 @@
         }
 
         murl = '/do_register';
-        murl2 = 'http://localhost:5000/';
         mdata = {
             'username': username,
             'password': password,
@@ -170,9 +174,14 @@
             'type': type
         };
         $.post(murl, mdata, function (result) {
-            // success
             if (result['isOk'] == 1) {
-                window.location.href = murl2;
+                // success
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('注册成功！');
+                });
+
+                // intervalid = setInterval("fun()", 1000);
             }
             if (result['isOk'] == 0) {
                 layui.use('layer', function () {
@@ -182,6 +191,9 @@
             }
         }, 'json');
 
+    }
+    function go_login() {
+        window.location.href = murl2;
     }
 </script>
 <body>
@@ -200,6 +212,9 @@
             <option value="job_hunter">求职者</option>
         </select>
         <button class="but_register" type="button" onclick="doRegister()">注册</button>
+        <br>
+        <button class="but" type="button" onclick="go_login()">登录</button>
+
     </form>
 
 </div>

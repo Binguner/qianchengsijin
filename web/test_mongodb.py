@@ -137,9 +137,9 @@ def add_user_job_hunter():
     user_collect.insert(user_dic)
 
 
-def delete_user_root():
+def delete_user(username):
     deleted_user_dic = {
-        'username': 'root'
+        'username': username
     }
     user_collect.remove(deleted_user_dic, multi=False)
 
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     # delete_user_root()
     # select_user_root()
     # add_user_root()
-    # delete_user_root()
+    delete_user('third_hr')
     # add_user_hr()
     # add_user_job_hunter()
     print_all_user()

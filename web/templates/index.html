@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
 <script>
+
+    $(document).ready(function () {
+        document.getElementById("content_frame").src = 'http://' + window.location.host + '/main'
+    });
+
     //一般直接写在一个js文件中
     layui.use('form', 'element', function () {
         var form = layui.form;
@@ -169,7 +174,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a onclick="logout()">退了</a></li>
+            <li class="layui-nav-item"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 
@@ -178,33 +183,35 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul id="left_menu_list" class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">查询</a>
+                    <a class="" href="javascript:;">岗位信息</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="change_type_search(0)">岗位查询</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(1)">词云</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>
+<!--                        <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>-->
+<!--                        <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>-->
+<!--                        <dd><a href="javascript:;" onclick="change_type_search(10)">公司数量</a></dd>-->
+<!--                        <dd><a href="javascript:;" onclick="change_type_search(11)">公司行业</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">数据可视化</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="change_type_search(9)">综合数据</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(5)">地图数据</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(6)">用户信息</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(7)">个人简历</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(8)">公司信息</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(9)">首页</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(10)">公司数量</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(11)">公司行业</a></dd>
                         <dd><a href="javascript:;" onclick="change_type_search(12)">薪资方差</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">用户信息</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(6)">用户信息</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(7)">个人简历</a></dd>
+                        <dd><a href="javascript:;" onclick="change_type_search(8)">公司信息</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
+<!--                <li class="layui-nav-item"><a href=""></a></li>-->
+<!--                <li class="layui-nav-item"><a href="">发布商品</a></li>-->
             </ul>
         </div>
     </div>

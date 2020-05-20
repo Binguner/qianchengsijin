@@ -22,19 +22,19 @@
     var mtype = {{ g.type }}
     switch (mtype) {
       case 0:
-        console.log('root');
+        // console.log('root');
         // $('#user_info_phone').val('管理员');
         $('#user_type').val(0);
         $('#user_type').attr('disabled', 'disabled');
         break;
       case 1:
-        console.log('hr');
+        // console.log('hr');
         // $('#user_info_phone').val('企业账号');
         $("#user_type option:first").remove();
         $('#user_type').val(1);
         break;
       case 2:
-        console.log('hunter');
+        // console.log('hunter');
         // $('#user_info_phone').val('求职者');
         $("#user_type option:first").remove();
         $('#user_type').val(2);
@@ -42,11 +42,66 @@
     }
     layui.form.render();
   })
+  function submit_change() {
+        var username = $('#user_info_username').val();
+        var mail = $('#user_info_email').val();
+        var phone = $('#user_info_phone').val();
+        var type = $('#user_type').val();
+        // console.log(username);
+        // alert(username)
+        // console.log(mail);
+        // console.log(phone);
+        // console.log(type);
+        if (username == '' || username == null) {
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('用户名不得为空！');
+          });
+          return;
+        }
+        if (mail == '' || mail == null) {
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('邮箱不得为空！');
+          });
+          return;
+        }
+        if (phone == '' || phone == null) {
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('手机号不得为空！');
+          });
+          return;
+        }
+        if (type == '' || type == null) {
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('用户类型不得为空！');
+          });
+          return;
+        }
+        if(!(/^1[3456789]\d{9}$/.test(phone))) {
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('手机号码有误，请重填!');
+          });
+          return false;
+        }
+        var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+		if(!(reg.test(mail))){
+		  layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('邮箱格式不正确!');
+          });
+          return false;
+		}
+
+    }
 </script>
 <body style="height: 100%">
 <!--<div style="width:100%; margin: 0 auto">-->
 
-<form class="layui-form layui-form-pane" action="" style="width:25%; margin: 0 auto; height:100%; margin-top: 200px">
+<form class="layui-form layui-form-pane" style="width:25%; margin: 0 auto; height:100%; margin-top: 200px">
 
   <div class="layui-form-item" >
     <label class="layui-form-label">用户名</label>
@@ -80,7 +135,7 @@
   </div>
 
   <div class="layui-form-item">
-    <button class="layui-btn" lay-submit="" lay-filter="demo2">确认修改</button>
+    <button type="button" class="layui-btn" onclick="submit_change()" lay-filter="demo2">确认修改</button>
   </div>
 </form>
 <!--</div>-->

@@ -146,6 +146,12 @@ def page_company_nature():
 def page_fangcha():
     return render_template('/fangcha.html')
 
+
+@app.route('/register')
+def page_register():
+    return render_template('/register.html')
+
+
 @app.route('/get_ciyun', methods=['POST'])
 def get_ciyun_data():
     res = 'no data'
@@ -305,6 +311,31 @@ def dologin():
     #   "msg": "登陆成功"
     # }
     return jsonify(result)
+
+
+@app.route('/do_register', methods=['POST'])
+def doRegister():
+    username = request.values.get('username')
+    password = request.values.get('password')
+    email = request.values.get('email')
+    phone = request.values.get('phone')
+    type = request.values.get('type')
+    # print(username)
+    # print(password)
+    # print(email)
+    # print(phone)
+    # print(type)
+
+    if read_data.register_user(username,password,email,phone,type):
+        result = {
+            'isOk': '1',
+        }
+        return jsonify(result)
+    else:
+        result = {
+            'isOk': '0',
+        }
+        return jsonify(result)
 
 
 @app.route('/logout', methods=['post'])

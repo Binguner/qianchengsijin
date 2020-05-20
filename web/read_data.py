@@ -106,6 +106,31 @@ def check_user(username, password):
     return res
 
 
+def register_user(username, password, email, phone, type):
+    query = {
+        'username': username
+    }
+    for c in collection_user.find(query):
+        if c['username'] == username:
+            return False
+
+    t_number = 0
+    if type == 'hr':
+        t_number = 1
+    elif type == 'job_hunter':
+        t_number = 2
+    query = {
+        'username': username,
+        'password': password,
+        'email': email,
+        'phone': phone,
+        'type': t_number,
+    }
+    collection_user.insert(query)
+    print(str(query))
+    return True
+
+
 def get_userid(username):
     query = {
         'username': username

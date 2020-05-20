@@ -2,9 +2,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="../static/jquery-3.4.1.js"></script>
+    <script src="../static/layui/layui.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
     <title>注册</title>
 </head>
+<style>
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: sans-serif;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        background-color: #4A374A;
+    }
+
+    #register {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -150px 0 0 -150px;
+        width: 300px;
+        height: 300px;
+    }
+
+    #register h1 {
+        color: #fff;
+        text-shadow: 0 0 10px;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+    }
+
+    select {
+        width: 278px;
+        height: 25px;
+        margin-bottom: 10px;
+        outline: none;
+        /*padding: 10px;*/
+        /*font-size: 13px;*/
+        color: #fff;
+        text-shadow: 1px 1px 1px;
+        border: 1px solid #ccc;
+        /*border-top: 1px solid #312E3D;*/
+        /*border-left: 1px solid #312E3D;*/
+        /*border-right: 1px solid #312E3D;*/
+        /*border-bottom: 1px solid #56536A;*/
+        border-radius: 4px;
+        background-color: #2D2D3F;
+    }
+
+    input {
+        width: 278px;
+        height: 18px;
+        margin-bottom: 10px;
+        outline: none;
+        padding: 10px;
+        font-size: 13px;
+        color: #fff;
+        text-shadow: 1px 1px 1px;
+        border-top: 1px solid #312E3D;
+        border-left: 1px solid #312E3D;
+        border-right: 1px solid #312E3D;
+        border-bottom: 1px solid #56536A;
+        border-radius: 4px;
+        background-color: #2D2D3F;
+    }
+
+    .but {
+        width: 300px;
+        min-height: 20px;
+        display: block;
+        background-color: #4a77d4;
+        border: 1px solid #3762bc;
+        color: #fff;
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        margin: 0;
+    }
+
+    .but_register {
+        width: 300px;
+        min-height: 20px;
+        display: block;
+        background-color: #496190;
+        border: 1px solid #6886c4;
+        color: #fff;
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        margin: 0;
+    }
+
+</style>
+<script>
+    function doRegister() {
+        var username = $('#input_username').val();
+        var password = $('#input_password').val();
+        var password_again = $('#input_password_again').val();
+        var email = $('#input_email').val();
+        var phone = $('#input_phone').val();
+        var type = $('#input_type').val();
+
+        if (password_again != password) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('请确保两次密码输入正确！');
+            });
+            return;
+        }
+        if (username == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('用户名不能为空！');
+            });
+            return;
+        }
+        if (password == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('密码不能为空！');
+            });
+            return;
+        }
+        if (password_again == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('请再次输入密码！');
+            });
+            return;
+        }
+        if (email == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('邮箱不能为空！');
+            });
+            return;
+        }
+        if (phone == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('电话不能为空！');
+            });
+            return;
+        }
+
+        murl = '/do_register';
+        murl2 = 'http://localhost:5000/';
+        mdata = {
+            'username': username,
+            'password': password,
+            'email': email,
+            'phone': phone,
+            'type': type
+        };
+        $.post(murl, mdata, function (result) {
+            // success
+            if (result['isOk'] == 1) {
+                window.location.href = murl2;
+            }
+            if (result['isOk'] == 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('用户名已存在！');
+                });
+            }
+        }, 'json');
+
+    }
+</script>
 <body>
+<div id="register">
+
+    <h1>前程似锦</h1>
+    <form method="post" action="">
+        <input id="input_username" type="text" required="required" placeholder="用户名" name="u"></input>
+        <input id="input_password" type="password" required="required" placeholder="密码" name="p"></input>
+        <input id="input_password_again" type="password" required="required" placeholder="重复密码" name="p"></input>
+        <input id="input_email" type="text" required="required" placeholder="邮箱" name="p"></input>
+        <input id="input_phone" type="text" required="required" placeholder="电话" name="p"></input>
+        <!--        <input id="input_type" type="text" required="required" placeholder="用户类型" name="p"></input>-->
+        <select id="input_type">
+            <option value="hr">企业账号</option>
+            <option value="job_hunter">求职者</option>
+        </select>
+        <button class="but_register" type="button" onclick="doRegister()">注册</button>
+    </form>
+
+</div>
+
 
 </body>
 </html>

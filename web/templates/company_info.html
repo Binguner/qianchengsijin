@@ -25,18 +25,75 @@
 
     function send_company_msg() {
         var c_name = $('#c_name').val();
+        var c_scale_min = $('#c_scale_min').val();
+        var c_scale_max = $('#c_scale_max').val();
         var c_scale = $('#c_scale_min').val() + "-" + $('#c_scale_max').val();
         var c_type = $('#c_type').val();
         var c_nature = $('#c_nature').val();
         var c_place = $('#province').val() + '-' + $('#city').val() + '-' + $('#district').val();
         var c_detail = $('#c_detail').val();
 
-        console.log('c_name' + c_name);
-        console.log('c_scale' + c_scale);
-        console.log('c_type' + c_type);
-        console.log('c_nature' + c_nature);
-        console.log('c_place' + c_place);
-        console.log('c_detail' + c_detail);
+        if (c_name == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('公司名称不能为空!');
+            });
+            return;
+        }
+        // console.log(isNumber(c_scale_max));
+        // console.log(c_scale_min);
+        if (!isNumber(c_scale_min) || !isNumber(c_scale_max)) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('公司规模必须为数字!');
+            });
+            return;
+        }
+        function isNumber(val) {
+            var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+            var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+            if(regPos.test(val) || regNeg.test(val)){
+                return true;
+            }else{
+                return false;
+        }
+
+}
+        if (parseInt(c_scale_min) >= parseInt(c_scale_max)){
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('最大范围大于最小范围!');
+            });
+            return;
+        }
+        if (c_type == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('请选择公司类型!');
+            });
+            return;
+        }
+        if (c_nature == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('请选择公司所处行业!');
+            });
+            return;
+        }
+        if (c_detail == '') {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('未填写公司详情!');
+            });
+            return;
+        }
+
+        // console.log('c_name' + c_name);
+        // console.log('c_scale' + c_scale);
+        // console.log('c_type' + c_type);
+        // console.log('c_nature' + c_nature);
+        // console.log('c_place' + c_place);
+        // console.log('c_detail' + c_detail);
 
         $.ajax({
             type: 'POST',
@@ -50,12 +107,20 @@
                 'c_detail': c_detail
             },
             success: function () {
-                alert('修改成功')
+                // alert('修改成功')
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('修改成功!');
+                });
             },
             error: function () {
-                alert('修改成功')
+                // alert('修改成功')
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('修改成功!');
+                });
             }
-        })
+        });
     }
 
 </script>

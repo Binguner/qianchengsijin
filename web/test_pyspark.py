@@ -130,6 +130,7 @@ def get_ciyun_jobs():
 
 # get_rich_poor_data()
 
+
 # get_ciyun_jobs()
 # get_experience_data()
 # aaa = collection.map(lambda x: (x.asDict()['experience'], 1)).countByKey()

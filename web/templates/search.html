@@ -23,10 +23,17 @@
         let job_city = $("#choose_job_place").val();
         var url = "/searchzw";
 
+        if (job_name == '') {
+            layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('请输入岗位关键字！');
+                });
+            return;
+        }
         var data = {
             'search_keyword': job_name,
             'city_name': job_city
-        }
+        };
 
         // console.log(job_name + " : " + job_city);
         /*$.ajax({
@@ -48,6 +55,13 @@
             console.log('status ： '+status)
             if (status == 'success') {
                 $("#table_content tbody").empty()
+            }
+            if (jsondata.length == 0) {
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('你搜索的关键字数据为空，请重新输入关键字！');
+                });
+                return;
             }
             for (i = 0; i < jsondata.length; i++) {
                 var requirement = jsondata[i]['requirement'].toString();

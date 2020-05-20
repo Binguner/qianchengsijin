@@ -143,6 +143,7 @@ def delete_user_root():
     }
     user_collect.remove(deleted_user_dic, multi=False)
 
+
 def delete_all_user():
     deleted_user_dic = {
         'username': 'job_hunter'
@@ -235,8 +236,9 @@ def print_all_salary():
 
 
 if __name__ == '__main__':
+    # print("hello")
     # add_rich_poor()
-    print_all_salary()
+    # print_all_salary()
     # deleteNature()
     # spark_get_company_nature_number()
     # delete_data()
@@ -250,6 +252,6 @@ if __name__ == '__main__':
     # delete_user_root()
     # add_user_hr()
     # add_user_job_hunter()
-    # print_all_user()
+    print_all_user()
     # print_all_database()
     # print_all_collections_in_51_job()

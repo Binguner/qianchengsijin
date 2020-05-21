@@ -7,6 +7,11 @@
     <script src="../static/layui/layui.all.js"></script>
     <script src="../static/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../static/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/admin/css/admin.css"/>
+    <script src="../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/admin/js/main.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <script>
 
@@ -145,90 +150,219 @@
 
 </script>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">前锦求职网</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
+<div class="main-layout" id='main-layout'>
+    <!--侧边栏-->
+    <div class="main-layout-side">
+        <div class="m-logo">
+        </div>
+        <ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="iconfont">&#xe607;</i>岗位信息</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(0)">
+                        <span class="l-line"></span>岗位查询</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(1)">
+                        <span class="l-line"></span>词云</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(2)">
+                        <span class="l-line"></span>添加招聘</a></dd>
                 </dl>
             </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    <span id="id_username">{{ session.get('username', 'none') }}</span>
-                    <!--                    <span id="id_username">{{ g.username }}</span>-->
-                </a>
+
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="iconfont">&#xe607;</i>数据可视化</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(9)">
+                        <span class="l-line"></span>综合数据</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(5)">
+                        <span class="l-line"></span>地图数据</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(12)">
+                        <span class="l-line"></span>薪资方差</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a onclick="logout()">退出</a></li>
+
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="iconfont">&#xe607;</i>用户信息</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" onclick="change_type_search(6)">
+                        <span class="l-line"></span>用户信息</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(7)">
+                        <span class="l-line"></span>个人简历</a></dd>
+                    <dd><a href="javascript:;" onclick="change_type_search(8)">
+                        <span class="l-line"></span>公司信息</a></dd>
+                </dl>
+            </li>
+
         </ul>
     </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul id="left_menu_list" class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">岗位信息</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="change_type_search(0)">岗位查询</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(1)">词云</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
-<!--                        <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>-->
-<!--                        <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>-->
-<!--                        <dd><a href="javascript:;" onclick="change_type_search(10)">公司数量</a></dd>-->
-<!--                        <dd><a href="javascript:;" onclick="change_type_search(11)">公司行业</a></dd>-->
-                    </dl>
+    <!--右侧内容-->
+    <div class="main-layout-container">
+        <!--头部-->
+        <div class="main-layout-header">
+            <div class="menu-btn" id="hideBtn">
+                <a href="javascript:;">
+                    <span class="iconfont">&#xe60e;</span>
+                </a>
+            </div>
+            <ul class="layui-nav" lay-filter="rightNav">
+<!--                <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i-->
+<!--                        class="iconfont">&#xe603;</i></a></li>-->
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">
+                        <span id="id_username">{{ session.get('username', 'none') }}</span>
+                    </a>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">数据可视化</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="change_type_search(9)">综合数据</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(5)">地图数据</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(12)">薪资方差</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">用户信息</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="change_type_search(6)">用户信息</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(7)">个人简历</a></dd>
-                        <dd><a href="javascript:;" onclick="change_type_search(8)">公司信息</a></dd>
-                    </dl>
-                </li>
-<!--                <li class="layui-nav-item"><a href=""></a></li>-->
-<!--                <li class="layui-nav-item"><a href="">发布商品</a></li>-->
+                <li class="layui-nav-item"><a href="javascript:;" onclick="logout()">退出</a></li>
             </ul>
         </div>
-    </div>
-
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div id="body-content" style="padding: 15px;">
-            <!--            <div style="padding: 15px;">-->
-            <iframe id="content_frame" width="100%" height="900" frameborder="0">
-                您的浏览器不支持iframe，请升级
-            </iframe>
-            <!--            </div>-->
+        <!--主体内容-->
+        <div class="main-layout-body">
+            <!--tab 切换-->
+            <div class="" lay-filter="tab" lay-allowClose="true" style="height: 100%">
+<!--                <ul class="layui-tab-title">-->
+<!--                    <li class="layui-this welcome">后台主页</li>-->
+<!--                </ul>-->
+                <div class="layui-tab-content" style="height: 100%">
+                    <div class="layui-tab-item layui-show" style="background: #f5f5f5; height: 100%">
+                        <!--1-->
+                        <iframe id="content_frame" src="welcome.html" width="100%" height="100%" name="iframe" scrolling="auto"
+                                class="iframe" framborder="0"></iframe>
+                        <!--1end-->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <!--遮罩-->
+    <div class="main-mask">
 
+    </div>
 
 </div>
+    <!--<div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            &lt;!&ndash; 头部区域（可配合layui已有的水平导航） &ndash;&gt;
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        <span id="id_username">{{ session.get('username', 'none') }}</span>
+                        &lt;!&ndash;                    <span id="id_username">{{ g.username }}</span>&ndash;&gt;
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a onclick="logout()">退出</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                &lt;!&ndash; 左侧导航区域（可配合layui已有的垂直导航） &ndash;&gt;
+                <ul id="left_menu_list" class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">c</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" data-url="menu1.html" data-id='1' data-text="后台菜单"><span
+                                    class="l-line"></span>后台菜单</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(0)">岗位查询</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(1)">词云</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(2)">添加招聘</a></dd>
+                            &lt;!&ndash;                        <dd><a href="javascript:;" onclick="change_type_search(3)">学历分析</a></dd>&ndash;&gt;
+                            &lt;!&ndash;                        <dd><a href="javascript:;" onclick="change_type_search(4)">经验分析</a></dd>&ndash;&gt;
+                            &lt;!&ndash;                        <dd><a href="javascript:;" onclick="change_type_search(10)">公司数量</a></dd>&ndash;&gt;
+                            &lt;!&ndash;                        <dd><a href="javascript:;" onclick="change_type_search(11)">公司行业</a></dd>&ndash;&gt;
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">数据可视化</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" onclick="change_type_search(9)">综合数据</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(5)">地图数据</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(12)">薪资方差</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">用户信息</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" onclick="change_type_search(6)">用户信息</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(7)">个人简历</a></dd>
+                            <dd><a href="javascript:;" onclick="change_type_search(8)">公司信息</a></dd>
+                        </dl>
+                    </li>
+                    &lt;!&ndash;                <li class="layui-nav-item"><a href=""></a></li>&ndash;&gt;
+                    &lt;!&ndash;                <li class="layui-nav-item"><a href="">发布商品</a></li>&ndash;&gt;
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            &lt;!&ndash; 内容主体区域 &ndash;&gt;
+            <div id="body-content" style="padding: 15px;">
+                &lt;!&ndash;            <div style="padding: 15px;">&ndash;&gt;
+                <iframe id="content_frame" width="100%" height="900" frameborder="0">
+                    您的浏览器不支持iframe，请升级
+                </iframe>
+                &lt;!&ndash;            </div>&ndash;&gt;
+            </div>
+        </div>
+
+        <div class="main-layout-container">
+            &lt;!&ndash;头部&ndash;&gt;
+            <div class="main-layout-header">
+                <div class="menu-btn" id="hideBtn">
+                    <a href="javascript:;">
+                        <span class="iconfont">&#xe60e;</span>
+                    </a>
+                </div>
+                <ul class="layui-nav" lay-filter="rightNav">
+                    <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i
+                            class="iconfont">&#xe603;</i></a></li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">超级管理员</a>
+                    </li>
+                    <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
+                </ul>
+            </div>
+            &lt;!&ndash;主体内容&ndash;&gt;
+            <div class="main-layout-body">
+                &lt;!&ndash;tab 切换&ndash;&gt;
+                <div class="layui-tab layui-tab-brief main-layout-tab" lay-filter="tab" lay-allowClose="true">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this welcome">后台主页</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
+                            &lt;!&ndash;1&ndash;&gt;
+                            <iframe src="welcome.html" width="100%" height="100%" name="iframe" scrolling="auto"
+                                    class="iframe" framborder="0"></iframe>
+                            &lt;!&ndash;1end&ndash;&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        &lt;!&ndash;遮罩&ndash;&gt;
+        <div class="main-mask">
+
+        </div>
+
+
+    </div>-->
 
 </body>
 </html>
